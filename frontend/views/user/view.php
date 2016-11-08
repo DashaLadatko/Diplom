@@ -2,12 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Користувачі', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-view">
@@ -15,14 +16,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+
+        <?php
+
+        if ($model->isActive()) {
+            echo Html::a('Видалити', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Ви впевнені, що хочете видалити??',
+                    'method' => 'post',
+                ],
+            ]);
+        } else {
+            echo Html::a('Відновити', ['restore', 'id' => $model->id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'method' => 'post',
+                ],
+            ]);
+        }
+        ?>
     </p>
 
     <?= DetailView::widget([
@@ -32,17 +46,38 @@ $this->params['breadcrumbs'][] = $this->title;
             'first_name',
             'second_name',
             'last_name',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
+//            'auth_key',
+//            'password_hash',
+//            'password_reset_token',
             'email:email',
             'status',
             'role',
-            'created_at',
-            'created_by',
-            'updated_at',
-            'updated_by',
+//            'created_at',
+//            'created_by',
+//            'updated_at',
+//            'updated_by',
+            [
+                'attribute' => 'status',
+                'value' => $model->getStatusLabel(),
+                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
+            ],
+            [
+                'attribute' => 'created_at',
+                'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
+            ],
+            [
+                'attribute' => 'created_by',
+                'value' => $model->created_by ? User::getById($model->created_by)->username : '',
+            ], [
+                'attribute' => 'updated_at',
+                'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
+            ],
+            [
+                'attribute' => 'updated_by',
+                'value' => $model->updated_by ? User::getById($model->updated_by)->username : '',
+            ],
         ],
+
     ]) ?>
 
 </div>

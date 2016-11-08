@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Faculty */
 
-$this->title = 'Create Faculty';
-$this->params['breadcrumbs'][] = ['label' => 'Faculties', 'url' => ['index']];
+$this->title = 'Додати факультет';
+$this->params['breadcrumbs'][] = ['label' => 'Факультет', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="faculty-create">

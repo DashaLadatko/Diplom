@@ -20,10 +20,21 @@ class CommentController extends Controller
     public function behaviors()
     {
         return [
+//            'access' => [
+//                'class' => AccessControl::className(),
+//                'rules' => [
+//                    [
+//                        'allow' => true,
+//                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'restore'],
+//                        'roles' => ['*'],
+//                    ],
+//                ],
+//            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'restore' => ['POST'],
                 ],
             ],
         ];
@@ -99,18 +110,54 @@ class CommentController extends Controller
      * @param integer $id
      * @return mixed
      */
+//    public function actionDelete($id)
+//    {
+//        $this->findModel($id)->delete();
+//
+//        return $this->redirect(['index']);
+//    }
+//
+//    /**
+//     * Finds the Comment model based on its primary key value.
+//     * If the model is not found, a 404 HTTP exception will be thrown.
+//     * @param integer $id
+//     * @return Comment the loaded model
+//     * @throws NotFoundHttpException if the model cannot be found
+//     */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+            throw new ForbiddenHttpException('Access denied');
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Comment model based on its primary key value.
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionRestore($id)
+    {
+
+        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+            throw new ForbiddenHttpException('Access denied');
+        }
+
+        $this->findModel($id)->restore();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the Faculty model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Comment the loaded model
+     * @return Faculty the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

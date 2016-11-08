@@ -20,10 +20,21 @@ class TopicController extends Controller
     public function behaviors()
     {
         return [
+//            'access' => [
+//                'class' => AccessControl::className(),
+//                'rules' => [
+//                    [
+//                        'allow' => true,
+//                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'restore'],
+//                        'roles' => ['*'],
+//                    ],
+//                ],
+//            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'restore' => ['POST'],
                 ],
             ],
         ];
@@ -101,7 +112,29 @@ class TopicController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+            throw new ForbiddenHttpException('Access denied');
+        }
+
         $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionRestore($id)
+    {
+
+        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+            throw new ForbiddenHttpException('Access denied');
+        }
+
+        $this->findModel($id)->restore();
 
         return $this->redirect(['index']);
     }

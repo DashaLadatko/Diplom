@@ -9,7 +9,7 @@ use common\models\User;
 /* @var $searchModel common\models\search\FacultySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Faculties';
+$this->title = 'Факультети';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="faculty-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Faculty', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Додати факультет', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php Pjax::begin(); ?>
     <?= GridView::widget([
@@ -44,19 +44,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     'view' => function ($url) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
-                            'title' => Yii::t('app', 'Посмотреть')
+                            'title' => Yii::t('app', 'Переглянути')
                         ]);
                     },
 
                     'update' => function ($url, $model, $key) {
-                        $options = ['title' => Yii::t('yii', 'Обновить'), 'aria-label' => Yii::t('yii', 'Обновить'), 'data-pjax' => '0'];
+                        $options = ['title' => Yii::t('yii', 'Редагувати'), 'aria-label' => Yii::t('yii', 'Редагувати'), 'data-pjax' => '0'];
                         return ($model->status === User::STATUS_ACTIVE) ? Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options) : '';
                     },
                     'delete' => function ($url, $model, $key) {
                         $options = [
-                            'title' => Yii::t('yii', 'Удалить'),
-                            'aria-label' => Yii::t('yii', 'Удалить'),
-                            'data-confirm' => Yii::t('yii', 'Вы уверены, что хотите удалить?'),
+                            'title' => Yii::t('yii', 'Видалити'),
+                            'aria-label' => Yii::t('yii', 'Видалити'),
+                            'data-confirm' => Yii::t('yii', 'Ви впевнені, що хочете видалити?'),
                             'data-method' => 'post',
                             'data-pjax' => '0',
                         ];
@@ -64,8 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'restore' => function ($url, $model, $key) {
                         $options = [
-                            'title' => Yii::t('yii', 'Восстановить'),
-                            'aria-label' => Yii::t('yii', 'Восстановить'),
+                            'title' => Yii::t('yii', 'Відновити'),
+                            'aria-label' => Yii::t('yii', 'Відновити'),
                             'data-method' => 'post',
                             'data-pjax' => '0',
                         ];

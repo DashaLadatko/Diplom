@@ -8,7 +8,7 @@ use common\models\User;
 /* @var $model common\models\Faculty */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Faculties', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Факультет', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="faculty-view">
@@ -16,20 +16,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
         <?php
 
         if ($model->isActive()) {
-            echo Html::a('Удалить', ['delete', 'id' => $model->id], [
+            echo Html::a('Видалити', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => 'Вы уверены, что хотите удалить?',
+                    'confirm' => 'Ви впевнені, що хочете видалити??',
                     'method' => 'post',
                 ],
             ]);
         } else {
-            echo Html::a('Восстановить', ['restore', 'id' => $model->id], [
+            echo Html::a('Відновити', ['restore', 'id' => $model->id], [
                 'class' => 'btn btn-success',
                 'data' => [
                     'method' => 'post',

@@ -114,10 +114,22 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+            throw new ForbiddenHttpException('Access denied');
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+
 
     /**
      * @param $id
