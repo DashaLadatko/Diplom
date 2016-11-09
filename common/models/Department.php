@@ -69,9 +69,9 @@ class Department extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'faculty_id' => 'Faculty ID',
-            'name' => 'Name',
-            'status' => 'Status',
+            'faculty_id' => 'Факультет',
+            'name' => 'Назва',
+            'status' => 'Статус',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',

@@ -68,9 +68,9 @@ class Discipline extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'department_id' => 'Department ID',
-            'name' => 'Name',
-            'status' => 'Status',
+            'name' => 'Department ID',
+            'name' => 'Назва',
+            'status' => 'Статус',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',

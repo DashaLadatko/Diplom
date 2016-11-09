@@ -84,14 +84,14 @@ class User extends extUser
     {
         return [
             'id' => 'ID',
-            'first_name' => 'First name',
-            'last_name' => 'Last name',
+            'first_name' => 'Ім\'я',
+            'last_name' => 'Прізвище',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
-            'status' => 'Status',
-            'role' => 'Role',
+            'status' => 'Статус',
+            'role' => 'Роль',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',

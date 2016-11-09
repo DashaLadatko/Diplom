@@ -42,9 +42,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'faculty_id',
+            //'id',
+            //'faculty_id',
             'name',
+           [
+                'label'=>'Факультет',
+               'value'=> $model->faculty_id->name,
+
+           ],
             [
                 'attribute' => 'status',
                 'value' => $model->getStatusLabel(),

@@ -54,9 +54,9 @@ class Course extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
-            'status' => 'Status',
+            'name' => 'Назва',
+            'description' => 'Опис',
+            'status' => 'Статус',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',

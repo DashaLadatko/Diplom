@@ -4,7 +4,7 @@
 //For Languages
 use frontend\widgets\Langwidget;
 
-$this->title = 'My Yii Application';
+$this->title = 'Система дистанційного навчання';
 
 \common\models\Queue::startSend();
 ?>

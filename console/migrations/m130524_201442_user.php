@@ -14,6 +14,7 @@ class m130524_201442_user extends extMigration
 
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
+           // 'username' => $this->string(),
             'first_name' => $this->string(),
             'second_name' => $this->string(),
             'last_name' => $this->string(),

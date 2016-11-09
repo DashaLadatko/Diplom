@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
            // 'id',
             'department_id',
             'name',
-            'status',
+           // 'status',
             [
                 'attribute' => 'status',
                 'value' => function ($data) {

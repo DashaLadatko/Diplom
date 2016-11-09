@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+//use yii\helpers\ArrayHelper;
+//use common\models\Faculty;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Department */
@@ -13,6 +15,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'faculty_id')->textInput() ?>
+<!--    --><?//= $form->field($model, 'id')->dropDownList(ArrayHelper::map(Faculty::find()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

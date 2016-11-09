@@ -67,9 +67,9 @@ class Topic extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'time_of_passage' => 'Time Of Passage',
-            'status' => 'Status',
+            'name' => 'Назва',
+            'time_of_passage' => 'Термін проходження',
+            'status' => 'Статус',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',

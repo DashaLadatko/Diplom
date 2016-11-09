@@ -103,6 +103,19 @@ class DepartmentController extends Controller
                 'model' => $model,
             ]);
         }
+//        $model = $this->findModel($id);
+//
+//        if ($model->load(Yii::$app->request->post())){
+//            if($model->save()) {
+//                Yii::$app->getSession()->setFlash('success', "Зміни збережено! ");
+//                return $this->redirect(['view', 'id' => $model->id]);
+//            }else{
+//                Yii::$app->getSession()->setFlash('error', "Щось зламалось. Зміни не збережено!");
+//            }
+//        }
+//        return $this->render('update', [
+//            'model' => $model,
+//        ]);
     }
 
     /**

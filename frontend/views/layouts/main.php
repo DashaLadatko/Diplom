@@ -28,26 +28,33 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => 'Система дистанційного навчання',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+       // ['label' => 'Головна', 'url' => ['/site/index']],
+       // ['label' => 'Про нас', 'url' => ['/site/about']],
+        //['label' => 'Контакти', 'url' => ['/site/contact']],
+        ['label' => 'Факультети', 'url' => ['/faculty/index']],
+        ['label' => 'Кафедри', 'url' => ['/department/index']],
+        ['label' => 'Дисципліни', 'url' => ['/discipline/index']],
+        ['label' => 'Курси', 'url' => ['/course/index']],
+        ['label' => 'Групи', 'url' => ['/group/index']],
+        ['label' => 'Користувачі', 'url' => ['/user/index']],
+        ['label' => 'Профіль', 'url' => ['/user/view','id'=>Yii::$app->user->id]],
     ];
 
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+       // $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Вихід (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link']
             )
             . Html::endForm()
@@ -71,9 +78,9 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Ладатко Дарія 601-ТШм <?= date('Y') ?></p>
 
-      <p class="pull-right"><?= Yii::powered() ?></p>
+<!--      <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
     </div>
 </footer>
 
