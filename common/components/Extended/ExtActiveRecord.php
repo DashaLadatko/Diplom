@@ -22,8 +22,8 @@ class extActiveRecord extends ActiveRecord
     const STATUS_IN_ACTIVE = 0;
 
     const FIELD_STATUS = 'status';
-    const STATUS_ACTIVE_LABEL = 'активный';
-    const STATUS_IN_ACTIVE_LABEL = 'архивный';
+    const STATUS_ACTIVE_LABEL = 'активний';
+    const STATUS_IN_ACTIVE_LABEL = 'архівний';
 
     /**
      * @param bool $isActive

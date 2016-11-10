@@ -66,7 +66,7 @@ class Topic extends extActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            //'id' => 'ID',
             'name' => 'Назва',
             'time_of_passage' => 'Термін проходження',
             'status' => 'Статус',

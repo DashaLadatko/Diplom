@@ -26,8 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'faculty_id',
-
+//            'faculty_id',
+            [
+                'attribute' => 'faculty_id',
+                'value' => function ($data) {
+                    return $data->faculty->name;
+                },
+//                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
+//                'filter' => Html::activeDropDownList($searchModel, 'status', User::getArrayStatus(), ['prompt' => '', 'class' => 'form-control']),
+            ],
             'name',
            //'created_at',
             [

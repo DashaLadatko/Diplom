@@ -54,7 +54,8 @@ class Discipline extends extActiveRecord
     public function rules()
     {
         return [
-            [['department_id', 'name', 'status'], 'required'],
+            ['status', 'default', 'value' => 1],
+            [['department_id', 'name','status'], 'required'],
             [['department_id', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['department_id'], 'exist', 'skipOnError' => true, 'targetClass' => Department::className(), 'targetAttribute' => ['department_id' => 'id']],
@@ -68,7 +69,7 @@ class Discipline extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Department ID',
+            'department_id' => 'Кафедра',
             'name' => 'Назва',
             'status' => 'Статус',
             'created_at' => 'Created At',

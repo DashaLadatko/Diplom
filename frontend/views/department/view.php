@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
            [
                 'label'=>'Факультет',
-               'value'=> $model->faculty_id->name,
+               'value'=> $model->faculty->name,
 
            ],
             [

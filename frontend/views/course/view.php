@@ -71,5 +71,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+    <?php $active = Yii::$app->getRequest()->get('active');?>
+
+
 
 </div>

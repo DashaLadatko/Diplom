@@ -43,7 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'department_id',
+            [
+                'label'=>'Кафедра',
+                'value'=> $model->department->name,
+
+            ],
             'name',
             [
                 'attribute' => 'status',

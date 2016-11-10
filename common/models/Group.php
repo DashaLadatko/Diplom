@@ -68,7 +68,7 @@ class Group extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'department_id' => 'Department ID',
+            'department_id' => 'Кафедра',
             'name' => 'Назва',
             'status' => 'Статус',
             'created_at' => 'Created At',
