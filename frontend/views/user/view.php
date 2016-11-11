@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'updated_by',
-                'value' => $model->updated_by ? User::getById($model->updated_by)->username : '',
+                'value' => $model->updated_by ? User::getById($model->updated_by)->email : '',
             ],
         ],
 
