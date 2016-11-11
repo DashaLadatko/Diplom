@@ -52,10 +52,12 @@ class Faculty extends extActiveRecord
     public function rules()
     {
         return [
-            //['status', 'default', 'value' => 1],
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+
+
             [['name'], 'required'],
-            [['status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+           // ['status', 'default', 'value' => 1],
+            [[ 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
