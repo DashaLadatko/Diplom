@@ -25,17 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+//            'id',
             'name',
             'time_of_passage:datetime',
-            'status',
+//            'status',
             [
                 'attribute' => 'status',
                 'value' => function ($data) {
                     return $data->getStatusLabel();
                 },
 //                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
-                'filter' => Html::activeDropDownList($searchModel, 'status', User::getArrayStatus(), ['prompt' => '', 'class' => 'form-control']),
+                'filter' => Html::activeDropDownList($searchModel, 'status', User::getArrayStatus(), ['prompt' => 'Виберіть статус...', 'class' => 'form-control']),
             ],
             [
                 'class' => 'yii\grid\ActionColumn',

@@ -2,8 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\ckeditor\CKEditor;
 use yii\helpers\ArrayHelper;
 use common\models\Topic;
+
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Workshop */
@@ -18,9 +20,14 @@ use common\models\Topic;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+<!--    --><?//= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'type')->dropDownList([ 'practical' => 'Practical', 'seminar' => 'Seminar', 'laboratory' => 'Laboratory', 'lecture' => 'Lecture', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'description')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
+
+    <?= $form->field($model, 'type')->dropDownList([ 'practical' => 'Практична робота',  'laboratory' => 'Лабораторна робота', 'lecture' => 'Лекція', ], ['prompt' => 'Виберіть тип роботи...']) ?>
 
     <?= $form->field($model, 'status')->textInput() ?>
 

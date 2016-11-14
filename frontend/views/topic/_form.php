@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Topic */
@@ -14,9 +15,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'time_of_passage')->textInput() ?>
+<!--    --><?//= $form->field($model, 'time_of_passage')->textInput() ?>
+    <?= $form->field($model, 'time_of_passage')->widget(DatePicker::classname(), [
+        'options' => ['placeholder' => 'Виберіть дату ...'],
+        'pluginOptions' => [
+            'autoclose' => true
+        ]
+    ]); ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+
+<!--    --><?//= $form->field($model, 'status')->textInput() ?>
 
 <!--    --><?//= $form->field($model, 'created_at')->textInput() ?>
 <!---->

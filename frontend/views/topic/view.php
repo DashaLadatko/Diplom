@@ -42,9 +42,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+//            'id',
             'name',
-            'time_of_passage:datetime',
+//            'time_of_passage:datetime',
+            [
+                'attribute'=> 'time_of_passage',
+                'format'=>'raw',
+                'value'=>  date('d-m-Y', $model->time_of_passage),
+            ],
 //            'status',
 //            'created_at',
 //            'created_by',

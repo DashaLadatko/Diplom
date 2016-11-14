@@ -23,6 +23,10 @@ trait soft
      */
     public function load($data, $formName = null)
     {
+        if (!$data) {
+            return false;
+        }
+
         $className = $this::lastNameClass();
 
         if (array_key_exists($className, $data)) {
