@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use common\models\DisciplineCourse;
+use common\models\Discipline;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Course */
@@ -13,6 +16,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'id')->dropDownList(ArrayHelper::map(Discipline::find()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 

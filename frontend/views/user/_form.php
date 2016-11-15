@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use common\models\Faculty;
+use common\models\Group;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */

@@ -71,9 +71,9 @@ class Faculty extends extActiveRecord
             'id' => 'ID',
             'name' => 'Назва',
             'status' => 'Статус',
-            'created_at' => 'Created At',
+            'created_at' => 'Створено',
             'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
+            'updated_at' => 'Відредаговано',
             'updated_by' => 'Updated By',
         ];
     }

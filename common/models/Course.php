@@ -40,7 +40,8 @@ class Course extends extActiveRecord
     public function rules()
     {
         return [
-            [['name', 'description', 'status'], 'required'],
+            [['name', 'description'], 'required'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['description'], 'string'],
             [['status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
@@ -56,6 +57,7 @@ class Course extends extActiveRecord
             'id' => 'ID',
             'name' => 'Назва',
             'description' => 'Опис',
+            'discipline_id' => 'Дисципліна',
             'status' => 'Статус',
             'created_at' => 'Created At',
             'created_by' => 'Created By',

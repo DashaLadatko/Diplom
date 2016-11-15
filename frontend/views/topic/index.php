@@ -27,7 +27,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 //            'id',
             'name',
-            'time_of_passage:datetime',
+            'time_of_passage:date',
+//            [
+//                'attribute' => 'time_of_passage',
+//                'value' => function ($data) {
+////                    $data=1478639291;
+//                    return $data;
+//                },
+////                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
+////                'filter' => Html::activeDropDownList($searchModel, 'status', User::getArrayStatus(), ['prompt' => 'Виберіть статус...', 'class' => 'form-control']),
+//            ],
 //            'status',
             [
                 'attribute' => 'status',

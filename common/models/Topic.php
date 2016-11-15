@@ -58,7 +58,7 @@ class Topic extends extActiveRecord
             [['name', 'time_of_passage'], 'required'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [[ 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['name','time_of_passage'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255],
         ];
     }
 

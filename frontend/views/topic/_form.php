@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
+use common\models\TopicCourse;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Topic */

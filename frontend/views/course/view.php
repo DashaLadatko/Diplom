@@ -1,8 +1,11 @@
 <?php
 
 use yii\helpers\Html;
+use yii\bootstrap\Tabs;
 use yii\widgets\DetailView;
+use yii\bootstrap\Alert;
 use common\models\User;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\Course */
 
@@ -37,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -71,8 +73,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
-    <?php $active = Yii::$app->getRequest()->get('active');?>
 
+    <?php $active = Yii::$app->getRequest()->get('active');?>
+    <?php
+    $tabs[0] = [
+        'label' => 'Групи',
+        'content' => 'text',
+            'active' => true
+    ];
+    $tabs[1] = [
+        'label' => 'Групи',
+        'content' => 'text',
+        'active' => true
+    ];
+
+    ?>
 
 
 </div>
