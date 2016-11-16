@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->getStatusLabel();
                 },
 //                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
-                'filter' => Html::activeDropDownList($searchModel, 'status', User::getArrayStatus(), ['prompt' => '', 'class' => 'form-control']),
+                'filter' => Html::activeDropDownList($searchModel, 'status', User::getArrayStatus(), ['prompt' => 'Виберіть статус...', 'class' => 'form-control']),
             ],
             [
                 'class' => 'yii\grid\ActionColumn',

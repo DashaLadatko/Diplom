@@ -55,7 +55,7 @@ class Faculty extends extActiveRecord
     public function rules()
     {
         return [
-            [['name', 'status'], 'required'],
+            [['name'], 'required'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
@@ -71,10 +71,10 @@ class Faculty extends extActiveRecord
             'id' => 'ID',
             'name' => 'Назва',
             'status' => 'Статус',
-            'created_at' => 'Створено',
-            'created_by' => 'Created By',
-            'updated_at' => 'Відредаговано',
-            'updated_by' => 'Updated By',
+            'created_at' => 'Дата створення',
+            'updated_at' => 'Дата редагування',
+            'created_by' => 'Створено',
+            'updated_by' => 'Відредаговано',
         ];
     }
 

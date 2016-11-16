@@ -11,6 +11,7 @@ return [
         ],
 
         //  For Languages
+
         'i18n' => [
             'translations' => [
                 '*' => [

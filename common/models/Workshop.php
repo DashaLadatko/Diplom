@@ -56,7 +56,8 @@ class Workshop extends extActiveRecord
     public function rules()
     {
         return [
-            [['topic_id', 'name', 'description', 'type', 'status'], 'required'],
+            [['topic_id', 'name', 'description', 'type'], 'required'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['topic_id', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['description', 'type'], 'string'],
             [['name'], 'string', 'max' => 255],

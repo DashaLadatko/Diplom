@@ -2,7 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\bootstrap\Tabs;
+use kartik\tabs\TabsX;
 use common\models\User;
+
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Topic */
@@ -77,5 +80,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+    <?php $active = Yii::$app->getRequest()->get('active');?>
+    <?php
+    $tabs[0] = [
+        'label' => 'Групи',
+        'content' => $this->render('/group\index', [
+            'group_id' => $model->id,
+//            'searchModel' => $ModelCourseGroupUser,
+//            'searchModelGroup' => $searchModelGroup,
+        ]),
+//        'options' => ['group_id' => 'id'],
+//        'active' => (!$active || $active == 'personal-groups')
+    ];
+    $tabs[1] = [
+        'label' => 'Групи',
+        'content' => 'text',
+        'active' => true
+    ];
+
+    ?>
+    <?= TabsX::widget([
+        'position' => TabsX::POS_ABOVE,
+        'align' => TabsX::ALIGN_LEFT,
+        'bordered'=>true,
+        'items' => $tabs
+    ]);
+
+    $this->title = $model->name;
+    ?>
 
 </div>

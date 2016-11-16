@@ -16,8 +16,7 @@ use common\models\Discipline;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'id')->dropDownList(ArrayHelper::map(Discipline::find()->all(), 'id', 'name')) ?>
-
+<!--    --><?//= $form->field($model, 'id')->dropDownList(ArrayHelper::map(Discipline::find()->all(), 'id', 'name')) ?>
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
 <!--    --><?//= $form->field($model, 'status')->textInput() ?>
