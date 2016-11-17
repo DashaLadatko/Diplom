@@ -5,6 +5,8 @@ use yii\widgets\DetailView;
 use yii\bootstrap\Tabs;
 use kartik\tabs\TabsX;
 use common\models\User;
+use common\models\CourseGroupUser;
+use common\models\Group;
 
 
 /* @var $this yii\web\View */
@@ -87,11 +89,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'label' => 'Групи',
         'content' => $this->render('/group\index', [
             'group_id' => $model->id,
-//            'searchModel' => $ModelCourseGroupUser,
-//            'searchModelGroup' => $searchModelGroup,
+            'searchModel' => $ModelGroupUser,
+           'searchModelGroup' => $searchModelGroup,
         ]),
-//        'options' => ['group_id' => 'id'],
-//        'active' => (!$active || $active == 'personal-groups')
+        'options' => ['group_id' => 'id'],
+        'active' => (!$active || $active == 'group')
+
     ];
     $tabs[1] = [
         'label' => 'Групи',
