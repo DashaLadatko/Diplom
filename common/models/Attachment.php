@@ -77,9 +77,6 @@ class Attachment extends extActiveRecord
             [['obj_type', 'type', 'thumbnail_path'], 'string'],
             [['name', 'real_name', 'path'], 'string', 'max' => 255],
             [['ext'], 'string', 'max' => 10],
-            [['zipName'], 'string'],
-
-            [['attachments'], 'file', 'maxFiles' => 10],
         ];
     }
 
@@ -102,7 +99,7 @@ class Attachment extends extActiveRecord
         ];
     }
 
-    public static function saveAttachment(array $attributes, ActiveRecord $obj)
+    public static function saveAttachment(array $attributes)
     {
         $attachment = new self();
         $attachment->load($attributes);

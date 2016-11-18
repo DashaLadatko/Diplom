@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dee125b2d22be9b1669f3b5f15edb976",
+    "content-hash": "25fd4c3d11cecc443c002a18907a2611",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -316,16 +316,16 @@
         },
         {
             "name": "ckeditor/ckeditor",
-            "version": "4.5.11",
+            "version": "4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckeditor/ckeditor-releases.git",
-                "reference": "48155a1e1c7e84736b5a166ad3f33acea2a51255"
+                "reference": "2530c9c5d26f275882da192ba2231ac69e967474"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ckeditor/ckeditor-releases/zipball/48155a1e1c7e84736b5a166ad3f33acea2a51255",
-                "reference": "48155a1e1c7e84736b5a166ad3f33acea2a51255",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor-releases/zipball/2530c9c5d26f275882da192ba2231ac69e967474",
+                "reference": "2530c9c5d26f275882da192ba2231ac69e967474",
                 "shasum": ""
             },
             "type": "library",
@@ -353,7 +353,7 @@
                 "text",
                 "wysiwyg"
             ],
-            "time": "2016-09-07T13:32:39+00:00"
+            "time": "2016-11-16T15:14:40+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -401,16 +401,16 @@
         },
         {
             "name": "imagine/imagine",
-            "version": "v0.5.0",
+            "version": "v0.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "f64ec666baaa800edcbf237db41121a569230709"
+                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/f64ec666baaa800edcbf237db41121a569230709",
-                "reference": "f64ec666baaa800edcbf237db41121a569230709",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/149041d2a1b517107bfe270ca2b1a17aa341715d",
+                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d",
                 "shasum": ""
             },
             "require": {
@@ -425,6 +425,11 @@
                 "ext-imagick": "to use the Imagick implementation"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.7-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Imagine": "lib/"
@@ -449,7 +454,60 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2013-07-10T17:25:36+00:00"
+            "time": "2015-09-19T16:54:05+00:00"
+        },
+        {
+            "name": "kartik-v/bootstrap-fileinput",
+            "version": "v4.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
+                "reference": "6e1a8ca5ca04d4927540ccf18bbfc3253286bd0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/6e1a8ca5ca04d4927540ccf18bbfc3253286bd0c",
+                "reference": "6e1a8ca5ca04d4927540ccf18bbfc3253286bd0c",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\plugins\\fileinput\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "An enhanced HTML 5 file input for Bootstrap 3.x with features for file preview for many file types, multiple selection, ajax uploads, and more.",
+            "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
+            "keywords": [
+                "ajax",
+                "bootstrap",
+                "delete",
+                "file",
+                "image",
+                "input",
+                "jquery",
+                "multiple",
+                "preview",
+                "progress",
+                "upload"
+            ],
+            "time": "2016-09-20T05:47:41+00:00"
         },
         {
             "name": "kartik-v/bootstrap-tabs-x",
@@ -654,6 +712,61 @@
             "time": "2016-11-11 15:42:04"
         },
         {
+            "name": "kartik-v/yii2-widget-fileinput",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-widget-fileinput.git",
+                "reference": "744e12c1f5be45357ec50eea6f678ecc9ba67dc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-fileinput/zipball/744e12c1f5be45357ec50eea6f678ecc9ba67dc2",
+                "reference": "744e12c1f5be45357ec50eea6f678ecc9ba67dc2",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/bootstrap-fileinput": "~4.2",
+                "kartik-v/yii2-krajee-base": "~1.7"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\file\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "An enhanced FileInput widget for Bootstrap 3.x with file preview, multiple selection, and more features (sub repo split from yii2-widgets)",
+            "homepage": "https://github.com/kartik-v/yii2-widget-fileinput",
+            "keywords": [
+                "extension",
+                "file",
+                "form",
+                "input",
+                "jquery",
+                "plugin",
+                "upload",
+                "widget",
+                "yii2"
+            ],
+            "time": "2016-10-18 06:35:15"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.3",
             "source": {
@@ -708,16 +821,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "2b75151ea60e1fd820046416eee2e89c3dda1133"
+                "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2b75151ea60e1fd820046416eee2e89c3dda1133",
-                "reference": "2b75151ea60e1fd820046416eee2e89c3dda1133",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
+                "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
                 "shasum": ""
             },
             "require": {
@@ -798,7 +911,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2016-07-11T13:36:42+00:00"
+            "time": "2016-10-20T12:02:50+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -899,21 +1012,21 @@
         },
         {
             "name": "yiisoft/yii2-imagine",
-            "version": "2.0.4",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-imagine.git",
-                "reference": "68ed3d96cd1895035cef3c0e9ce9cf6c2c0c7f1c"
+                "reference": "59dcd0b43c2b0e5495c7e5c0320e2cbc1cd57411"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-imagine/zipball/68ed3d96cd1895035cef3c0e9ce9cf6c2c0c7f1c",
-                "reference": "68ed3d96cd1895035cef3c0e9ce9cf6c2c0c7f1c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-imagine/zipball/59dcd0b43c2b0e5495c7e5c0320e2cbc1cd57411",
+                "reference": "59dcd0b43c2b0e5495c7e5c0320e2cbc1cd57411",
                 "shasum": ""
             },
             "require": {
-                "imagine/imagine": "0.5.*",
-                "yiisoft/yii2": "*"
+                "imagine/imagine": "~0.6.0",
+                "yiisoft/yii2": "~2.0.0"
             },
             "type": "yii2-extension",
             "extra": {
@@ -943,7 +1056,7 @@
                 "imagine",
                 "yii2"
             ],
-            "time": "2016-09-04T15:14:08+00:00"
+            "time": "2016-11-03T19:28:39+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",
@@ -1365,7 +1478,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "kartik-v/yii2-widget-datepicker": 20,
-        "kartik-v/yii2-tabs-x": 20
+        "kartik-v/yii2-tabs-x": 20,
+        "kartik-v/yii2-widget-fileinput": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

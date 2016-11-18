@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use common\components\extended\extActiveRecord;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+
 /**
  * This is the model class for table "workshop".
  *
@@ -26,6 +27,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Workshop extends extActiveRecord
 {
+    public $files;
+
     /**
      * @inheritdoc
      */
@@ -33,6 +36,7 @@ class Workshop extends extActiveRecord
     {
         return 'workshop';
     }
+
     public function behaviors()
     {
         return [
@@ -50,6 +54,7 @@ class Workshop extends extActiveRecord
             ],
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -61,8 +66,15 @@ class Workshop extends extActiveRecord
             [['topic_id', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['description', 'type'], 'string'],
             [['name'], 'string', 'max' => 255],
+            [['name'], 'string', 'max' => 255],
+            [['files'], 'file', 'maxFiles' => 10],
             [['topic_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topic::className(), 'targetAttribute' => ['topic_id' => 'id']],
         ];
+    }
+
+    public function afterSave($insert)
+    {
+        Attachment::upload($this);
     }
 
     /**
@@ -83,6 +95,8 @@ class Workshop extends extActiveRecord
             'updated_by' => 'Updated By',
         ];
     }
+
+
 
     /**
      * @return \yii\db\ActiveQuery

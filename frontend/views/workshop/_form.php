@@ -14,7 +14,7 @@ use common\models\Topic;
 
 <div class="workshop-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($model, 'topic_id')->dropDownList(ArrayHelper::map(Topic::find()->all(), 'id', 'name')) ?>
 
@@ -29,7 +29,16 @@ use common\models\Topic;
 
     <?= $form->field($model, 'type')->dropDownList([ 'practical' => 'Практична робота',  'laboratory' => 'Лабораторна робота', 'lecture' => 'Лекція', ], ['prompt' => 'Виберіть тип роботи...']) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?
+    echo '<label class="control-label">Files</label>';
+    echo \kartik\file\FileInput::widget([
+    'model' => $model,
+    'attribute' => 'files[]',
+    'options' => ['multiple' => true]
+    ]);
+    ?>
+    <br>
+<!--    --><?//= $form->field($model, 'status')->textInput() ?>
 
 <!--    --><?//= $form->field($model, 'created_at')->textInput() ?>
 <!---->
