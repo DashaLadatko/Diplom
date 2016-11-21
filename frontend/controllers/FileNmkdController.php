@@ -1,18 +1,18 @@
 <?php
 
-namespace app\controllers;
+namespace frontend\controllers;
 
 use Yii;
-use common\models\FileNmkd;
-use app\models\FileNmkdSearch;
+use common\models\Filenmkd;
+use common\models\search\FilenmkdSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FileNmkdController implements the CRUD actions for FileNmkd model.
+ * FilenmkdController implements the CRUD actions for Filenmkd model.
  */
-class FileNmkdController extends Controller
+class FilenmkdController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class FileNmkdController extends Controller
     }
 
     /**
-     * Lists all FileNmkd models.
+     * Lists all Filenmkd models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new FileNmkdSearch();
+        $searchModel = new FilenmkdSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class FileNmkdController extends Controller
     }
 
     /**
-     * Displays a single FileNmkd model.
+     * Displays a single Filenmkd model.
      * @param integer $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class FileNmkdController extends Controller
     }
 
     /**
-     * Creates a new FileNmkd model.
+     * Creates a new Filenmkd model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new FileNmkd();
+        $model = new Filenmkd();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class FileNmkdController extends Controller
     }
 
     /**
-     * Updates an existing FileNmkd model.
+     * Updates an existing Filenmkd model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +94,7 @@ class FileNmkdController extends Controller
     }
 
     /**
-     * Deletes an existing FileNmkd model.
+     * Deletes an existing Filenmkd model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class FileNmkdController extends Controller
     }
 
     /**
-     * Finds the FileNmkd model based on its primary key value.
+     * Finds the Filenmkd model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return FileNmkd the loaded model
+     * @return Filenmkd the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = FileNmkd::findOne($id)) !== null) {
+        if (($model = Filenmkd::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

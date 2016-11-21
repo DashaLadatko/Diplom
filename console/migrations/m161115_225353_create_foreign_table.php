@@ -71,6 +71,16 @@ class m161115_225353_create_foreign_table extends Migration
         $this->createIndex('fk_user_course_group_user_idx', '{{%course_group_user}}', 'user_id');
         $this->addForeignKey('fk_user_course_group_user', '{{%course_group_user}}', 'user_id', '{{%user}}', 'id');
 
+
+        // file_nmkd
+        $this->createIndex('fk_file_nmkd_discipline_idx', '{{%file_nmkd}}', 'discipline_id');
+        $this->addForeignKey('fk_file_nmkd_discipline', '{{%file_nmkd}}', 'discipline_id', '{{%discipline}}', 'id');
+
+        $this->createIndex('fk_file_nmkd_component_idx', '{{%file_nmkd}}', 'component_nmkd_id');
+        $this->addForeignKey('fk_file_nmkd_component', '{{%file_nmkd}}', 'component_nmkd_id', '{{%component_nmkd}}', 'id');
+
+        $this->createIndex('fk_file_nmkd_user_idx', '{{%file_nmkd}}', 'user_id');
+        $this->addForeignKey('fk_file_nmkd_user', '{{%file_nmkd}}', 'user_id', '{{%user}}', 'id');
     }
 
     /**
@@ -137,5 +147,17 @@ class m161115_225353_create_foreign_table extends Migration
         $this->dropIndex('fk_group_course_group_user_idx', '{{%course_group_user}}');
         $this->dropForeignKey('fk_user_course_group_user', '{{%course_group_user}}');
         $this->dropIndex('fk_user_course_group_user_idx', '{{%course_group_user}}');
+
+        // file_nmkd
+        $this->dropForeignKey('fk_file_nmkd_discipline', '{{%file_nmkd}}');
+        $this->dropIndex('fk_file_nmkd_discipline_idx', '{{%file_nmkd}}');
+
+
+        $this->dropForeignKey('fk_file_nmkd_component', '{{%file_nmkd}}');
+        $this->dropIndex('fk_file_nmkd_component_idx', '{{%file_nmkd}}');
+
+        $this->dropForeignKey('fk_file_nmkd_user', '{{%file_nmkd}}');
+        $this->dropIndex('fk_file_nmkd_user_idx', '{{%file_nmkd}}');
+
     }
 }

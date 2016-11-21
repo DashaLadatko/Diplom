@@ -14,9 +14,10 @@ class m161115_141638_create_file_nmkd_table extends extMigration
     {
         $this->createTable('file_nmkd', [
             'id' => $this->primaryKey(),
-            'discipline_user_id' => $this->integer()->notNull(),
+            'discipline_id' => $this->integer()->notNull(),
             'component_nmkd_id' => $this->integer()->notNull(),
             'name' => $this->string(255)->notNull(),
+            'user_id' => $this->integer()->notNull(),
             'signature' => $this->enum(['not loaded', 'out for approval', 'rejected', 'approved'], true),
             'protocol_chair' => $this->boolean(),
             'protocol_fuculty' => $this->boolean(),

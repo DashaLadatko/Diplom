@@ -1,18 +1,18 @@
 <?php
 
-namespace app\controllers;
+namespace frontend\controllers;
 
 use Yii;
-use common\models\ComponentNmkd;
-use app\models\ComponentNmkdSearch;
+use common\models\Componentnmkd;
+use common\models\search\ComponentnmkdSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ComponentNmkdController implements the CRUD actions for ComponentNmkd model.
+ * ComponentnmkdController implements the CRUD actions for Componentnmkd model.
  */
-class ComponentNmkdController extends Controller
+class ComponentnmkdController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class ComponentNmkdController extends Controller
     }
 
     /**
-     * Lists all ComponentNmkd models.
+     * Lists all Componentnmkd models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ComponentNmkdSearch();
+        $searchModel = new ComponentnmkdSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class ComponentNmkdController extends Controller
     }
 
     /**
-     * Displays a single ComponentNmkd model.
+     * Displays a single Componentnmkd model.
      * @param integer $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class ComponentNmkdController extends Controller
     }
 
     /**
-     * Creates a new ComponentNmkd model.
+     * Creates a new Componentnmkd model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ComponentNmkd();
+        $model = new Componentnmkd();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class ComponentNmkdController extends Controller
     }
 
     /**
-     * Updates an existing ComponentNmkd model.
+     * Updates an existing Componentnmkd model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +94,7 @@ class ComponentNmkdController extends Controller
     }
 
     /**
-     * Deletes an existing ComponentNmkd model.
+     * Deletes an existing Componentnmkd model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class ComponentNmkdController extends Controller
     }
 
     /**
-     * Finds the ComponentNmkd model based on its primary key value.
+     * Finds the Componentnmkd model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ComponentNmkd the loaded model
+     * @return Componentnmkd the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ComponentNmkd::findOne($id)) !== null) {
+        if (($model = Componentnmkd::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

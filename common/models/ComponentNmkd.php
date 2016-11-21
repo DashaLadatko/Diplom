@@ -9,12 +9,14 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
- * @property string $created_at
+ * @property integer $created_at
  * @property integer $created_by
- * @property string $updated_at
+ * @property integer $updated_at
  * @property integer $updated_by
+ *
+ * @property FileNmkd[] $fileNmkds
  */
-class ComponentNmkd extends \yii\db\ActiveRecord
+class Componentnmkd extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -31,8 +33,7 @@ class ComponentNmkd extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['created_by', 'updated_by'], 'integer'],
+            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -50,5 +51,13 @@ class ComponentNmkd extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFileNmkds()
+    {
+        return $this->hasMany(FileNmkd::className(), ['component_nmkd_id' => 'id']);
     }
 }
