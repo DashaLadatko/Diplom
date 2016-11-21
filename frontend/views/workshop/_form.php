@@ -2,8 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\ckeditor\CKEditor;
 use yii\helpers\ArrayHelper;
 use common\models\Topic;
+
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Workshop */
@@ -12,17 +14,31 @@ use common\models\Topic;
 
 <div class="workshop-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?= $form->field($model, 'topic_id')->dropDownList(ArrayHelper::map(Topic::find()->all(), 'id', 'name')) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+<!--    --><?//= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'type')->dropDownList([ 'practical' => 'Practical', 'seminar' => 'Seminar', 'laboratory' => 'Laboratory', 'lecture' => 'Lecture', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'description')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($model, 'type')->dropDownList([ 'practical' => 'Практична робота',  'laboratory' => 'Лабораторна робота', 'lecture' => 'Лекція', ], ['prompt' => 'Виберіть тип роботи...']) ?>
+
+    <?
+    echo '<label class="control-label">Files</label>';
+    echo \kartik\file\FileInput::widget([
+    'model' => $model,
+    'attribute' => 'files[]',
+    'options' => ['multiple' => true]
+    ]);
+    ?>
+    <br>
+<!--    --><?//= $form->field($model, 'status')->textInput() ?>
 
 <!--    --><?//= $form->field($model, 'created_at')->textInput() ?>
 <!---->

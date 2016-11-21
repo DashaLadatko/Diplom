@@ -54,7 +54,8 @@ class Group extends extActiveRecord
     public function rules()
     {
         return [
-            [['department_id', 'name', 'status'], 'required'],
+            [['department_id', 'name'], 'required'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['department_id', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['department_id'], 'exist', 'skipOnError' => true, 'targetClass' => Department::className(), 'targetAttribute' => ['department_id' => 'id']],

@@ -55,7 +55,8 @@ class Department extends extActiveRecord
     public function rules()
     {
         return [
-            [['faculty_id', 'name', 'status'], 'required'],
+            [['faculty_id', 'name'], 'required'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['faculty_id', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['faculty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Faculty::className(), 'targetAttribute' => ['faculty_id' => 'id']],

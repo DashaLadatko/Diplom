@@ -54,11 +54,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
             ],
             [
-                'attribute' => 'created_by',
-                'value' => $model->created_by ? User::getById($model->created_by)->username : '',
-            ], [
+
                 'attribute' => 'updated_at',
                 'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
+            ], [
+                'attribute' => 'created_by',
+                'value' => $model->created_by ? User::getById($model->created_by)->roll : '',
+
             ],
             [
                 'attribute' => 'updated_by',

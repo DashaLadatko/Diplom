@@ -3,13 +3,10 @@
 use yii\db\Migration;
 
 /**
- * m161105_215422_create_foreign_table
+ * Handles the creation for table `foreign`.
  */
-class m161107_211028_create_foreign_table extends Migration
+class m161115_225353_create_foreign_table extends Migration
 {
-    /**
-     * @inheritdoc
-     */
     public function up()
     {
         // department
@@ -35,6 +32,12 @@ class m161107_211028_create_foreign_table extends Migration
         $this->addForeignKey('fk_discipline_course', '{{%discipline_course}}', 'discipline_id', '{{%discipline}}', 'id');
         $this->createIndex('fk_course_discipline_idx', '{{%discipline_course}}', 'course_id');
         $this->addForeignKey('fk_course_discipline', '{{%discipline_course}}', 'course_id', '{{%course}}', 'id');
+
+        // discipline_user
+        $this->createIndex('fk_discipline_user_idx', '{{%discipline_user}}', 'discipline_id');
+        $this->addForeignKey('fk_discipline_user', '{{%discipline_user}}', 'discipline_id', '{{%discipline}}', 'id');
+        $this->createIndex('fk_user_discipline_idx', '{{%discipline_user}}', 'user_id');
+        $this->addForeignKey('fk_user_discipline', '{{%discipline_user}}', 'user_id', '{{%user}}', 'id');
 
         // topic_course
         $this->createIndex('fk_topic_course_idx', '{{%topic_course}}', 'topic_id');
@@ -98,6 +101,12 @@ class m161107_211028_create_foreign_table extends Migration
         $this->dropIndex('fk_discipline_course_idx', '{{%discipline_course}}');
         $this->dropForeignKey('fk_course_discipline', '{{%discipline_course}}');
         $this->dropIndex('fk_course_discipline_idx', '{{%discipline_course}}');
+
+        // discipline_user
+        $this->dropForeignKey('fk_discipline_user', '{{%discipline_user}}');
+        $this->dropIndex('fk_discipline_user_idx', '{{%discipline_user}}');
+        $this->dropForeignKey('fk_user_discipline', '{{%discipline_user}}');
+        $this->dropIndex('fk_user_discipline_idx', '{{%discipline_user}}');
 
         // topic_course
         $this->dropForeignKey('fk_topic_course', '{{%topic_course}}');

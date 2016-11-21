@@ -37,6 +37,7 @@ class User extends extUser
 
     public static $roles = [
         0 => 'ADMIN'
+
     ];
 
     public $password;

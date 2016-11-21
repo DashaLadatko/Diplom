@@ -28,6 +28,7 @@ class uploader
         self::TYPE_DOCUMENT => [
             'pdf',
             'doc',
+            'docx',
             'txt',
             'xlsx',
             'xls'

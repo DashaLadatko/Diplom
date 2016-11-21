@@ -77,9 +77,8 @@ class FacultyController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Faculty();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model = new Faculty();# ты вгружешь load потом валидируешь (validate)! и только потом сохраняешь (save)
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -98,7 +97,7 @@ class FacultyController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

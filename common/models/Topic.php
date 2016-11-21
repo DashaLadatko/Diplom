@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use common\components\extended\extActiveRecord;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+
 /**
  * This is the model class for table "topic".
  *
@@ -54,8 +55,9 @@ class Topic extends extActiveRecord
     public function rules()
     {
         return [
-            [['name', 'time_of_passage', 'status'], 'required'],
-            [['time_of_passage', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['name', 'time_of_passage'], 'required'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            [[ 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }

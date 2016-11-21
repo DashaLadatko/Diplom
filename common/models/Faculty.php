@@ -7,6 +7,7 @@ use yii\db\ActiveRecord;
 use common\components\extended\extActiveRecord;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+
 /**
  * This is the model class for table "faculty".
  *
@@ -29,6 +30,7 @@ class Faculty extends extActiveRecord
     {
         return 'faculty';
     }
+
     public function behaviors()
     {
         return [
@@ -46,18 +48,16 @@ class Faculty extends extActiveRecord
             ],
         ];
     }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-
-
             [['name'], 'required'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-           // ['status', 'default', 'value' => 1],
-            [[ 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -71,10 +71,10 @@ class Faculty extends extActiveRecord
             'id' => 'ID',
             'name' => 'Назва',
             'status' => 'Статус',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'created_at' => 'Дата створення',
+            'updated_at' => 'Дата редагування',
+            'created_by' => 'Створено',
+            'updated_by' => 'Відредаговано',
         ];
     }
 

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\Faculty */
 
 $this->title = 'Редагування факультету: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Факультет', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Факультети', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Редагувати';
 ?>

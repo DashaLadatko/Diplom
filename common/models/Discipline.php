@@ -54,7 +54,7 @@ class Discipline extends extActiveRecord
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => 1],
+            ['status', 'default', 'value' =>self::STATUS_ACTIVE],
             [['department_id', 'name','status'], 'required'],
             [['department_id', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],

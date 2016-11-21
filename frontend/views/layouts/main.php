@@ -44,6 +44,7 @@ AppAsset::register($this);
         ['label' => 'Курси', 'url' => ['/course/index']],
         ['label' => 'Групи', 'url' => ['/group/index']],
         ['label' => 'Теми', 'url' => ['/topic/index']],
+        ['label' => 'Завдання', 'url' => ['/workshop/index']],
         ['label' => 'Користувачі', 'url' => ['/user/index']],
         ['label' => 'Профіль', 'url' => ['/user/view','id'=>Yii::$app->user->id]],
     ];

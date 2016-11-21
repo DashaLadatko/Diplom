@@ -2,7 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\bootstrap\Tabs;
+use kartik\tabs\TabsX;
 use common\models\User;
+use common\models\CourseGroupUser;
+use common\models\Group;
+
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Topic */
@@ -42,9 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+//            'id',
             'name',
-            'time_of_passage:datetime',
+//            'time_of_passage:datetime',
+            [
+                'attribute'=> 'time_of_passage',
+                'format'=>'raw',
+                'value'=>  date('d-m-Y', $model->time_of_passage),
+            ],
 //            'status',
 //            'created_at',
 //            'created_by',
@@ -72,5 +82,35 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]) ?>
+
+    <?php $active = Yii::$app->getRequest()->get('active');?>
+    <?php
+    $tabs[0] = [
+        'label' => 'Групи',
+        'content' => $this->render('/group\index', [
+            'group_id' => $model->id,
+            'searchModel' => $ModelGroupUser,
+           'searchModelGroup' => $searchModelGroup,
+        ]),
+        'options' => ['group_id' => 'id'],
+        'active' => (!$active || $active == 'group')
+
+    ];
+    $tabs[1] = [
+        'label' => 'Групи',
+        'content' => 'text',
+        'active' => true
+    ];
+
+    ?>
+    <?= TabsX::widget([
+        'position' => TabsX::POS_ABOVE,
+        'align' => TabsX::ALIGN_LEFT,
+        'bordered'=>true,
+        'items' => $tabs
+    ]);
+
+    $this->title = $model->name;
+    ?>
 
 </div>
