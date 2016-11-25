@@ -2,8 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
 use common\models\TopicCourse;
+use common\models\Course;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Topic */
@@ -13,8 +15,9 @@ use common\models\TopicCourse;
 <div class="topic-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+    <?= $form->field($model, 'name')->dropDownList(ArrayHelper::map(Course::find()->all(), 'id', 'name'),['prompt' => 'Виберіть потрібний курс...']) ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
 
 <!--    --><?//= $form->field($model, 'time_of_passage')->textInput() ?>
     <?= $form->field($model, 'time_of_passage')->widget(DatePicker::classname(), [

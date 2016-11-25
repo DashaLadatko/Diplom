@@ -2,8 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 use common\models\User;
+use common\models\Faculty;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\DepartmentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -31,9 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'faculty_id',
                 'value' => function ($data) {
                     return $data->faculty->name;
+
                 },
 //                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
-//                'filter' => Html::activeDropDownList($searchModel, 'status', User::getArrayStatus(), ['prompt' => '', 'class' => 'form-control']),
+                'filter' => Html::activeDropDownList($searchModel, 'name', ArrayHelper::map(Faculty::find()->all(), 'id', 'name'), ['prompt' => 'Виберіть факультет...', 'class' => 'form-control']),
             ],
             'name',
            //'created_at',

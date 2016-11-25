@@ -90,7 +90,7 @@ class User extends extUser
             'last_name' => 'Прізвище',
             'second_name' => 'По-батькові',
             'auth_key' => 'Пароль',
-            'password_hash' => 'Password Hash',
+            'password_hash' => 'Пароль',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
             'status' => 'Статус',

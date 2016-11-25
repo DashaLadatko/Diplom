@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </p>
     <?= Html::a('mark', Url::toRoute(['/mark/index']), ['class' => 'btn btn-primary']); ?>
+    <?= Html::a('Завдання', Url::toRoute(['/workshop/create']), ['class' => 'btn btn-primary']); ?>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -63,6 +64,11 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'updated_at',
 //            'updated_by',
             [
+                'attribute' => 'course_id',
+                'value' => $model->getTopicCourses(),
+                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
+            ],
+            [
                 'attribute' => 'status',
                 'value' => $model->getStatusLabel(),
                 'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
@@ -73,14 +79,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'created_by',
-                'value' => $model->created_by ? User::getById($model->created_by)->username : '',
+                'value' => $model->created_by ? User::getById($model->created_by)->email : '',
             ], [
                 'attribute' => 'updated_at',
                 'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
             ],
             [
                 'attribute' => 'updated_by',
-                'value' => $model->updated_by ? User::getById($model->updated_by)->username : '',
+                'value' => $model->updated_by ? User::getById($model->updated_by)->email: '',
             ],
         ],
     ]) ?>
@@ -93,19 +99,8 @@ $this->params['breadcrumbs'][] = $this->title;
     $pra = 0;
     $sem = 0;
 
-    echo '<h1>Лабораторные</h1>';
 
-    foreach ($array as $key => $item) {
-        if ($item->type === \common\models\Workshop::type_laboratory) {
-            echo ++$lab . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
-        }
-    }
-    if (!$lab) {
-        echo '<p>Лабораторных не найдено</p>';
-    }
-
-
-    echo '<h1>Лекции</h1>';
+    echo '<h1>Лекції теми</h1>';
 
     foreach ($array as $key => $item) {
         if ($item->type === \common\models\Workshop::type_lecture) {
@@ -114,11 +109,22 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
     if (!$lec) {
-        echo '<p>Лекции не найдено</p>';
+        echo '<p>Лекцій не знайдено</p>';
+    }
+
+    echo '<h1>Лабораторні роботи</h1>';
+
+    foreach ($array as $key => $item) {
+        if ($item->type === \common\models\Workshop::type_laboratory) {
+            echo ++$lab . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+        }
+    }
+    if (!$lab) {
+        echo '<p>Лабораторних робіт не знайдено</p>';
     }
 
 
-    echo '<h1>Практические</h1>';
+    echo '<h1>Практичні роботи</h1>';
 
     foreach ($array as $key => $item) {
         if ($item->type === \common\models\Workshop::type_practical) {
@@ -127,20 +133,20 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
     if (!$pra) {
-        echo '<p>Практическиех не найдено</p>';
+        echo '<p>Практичних робіт не найдено</p>';
     }
 
-    echo '<h1>Семинары</h1>';
-
-    foreach ($array as $key => $item) {
-        if ($item->type === \common\models\Workshop::type_seminar) {
-            echo ++$sem . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
-        }
-    }
-
-    if (!$sem) {
-        echo '<p>Семинаров не найдено</p>';
-    }
+//    echo '<h1>Семинары</h1>';
+//
+//    foreach ($array as $key => $item) {
+//        if ($item->type === \common\models\Workshop::type_seminar) {
+//            echo ++$sem . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+//        }
+//    }
+//
+//    if (!$sem) {
+//        echo '<p>Семинаров не найдено</p>';
+//    }
 
     ?>
     <!--    --><?php

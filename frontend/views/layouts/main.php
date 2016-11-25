@@ -37,22 +37,32 @@ AppAsset::register($this);
     ]);
 
 
-    $menuItems = [];
+//    $menuItems = [
+//        ['label' => 'Головна', 'url' => ['/site/index']],
+//        ['label' => 'Про нас', 'url' => ['/site/about']],
+//        ['label' => 'Контакти', 'url' => ['/site/contact']],
+//
+//    ];
 
     if (!Yii::$app->user->isGuest) {
 
-        if (\common\models\User::isRole(['STAFF','ADMIN'])) {
+        if (\common\models\User::isRole(['Адмін'])) {
             $menuItems[] = ['label' => 'Факультети', 'url' => ['/faculty/index']];
             $menuItems[] = ['label' => 'Кафедри', 'url' => ['/department/index']];
             $menuItems[] = ['label' => 'Дисципліни', 'url' => ['/discipline/index']];
             $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
+            $menuItems[] = ['label' => 'Групи', 'url' => ['/group/index']];
+            $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
             $menuItems[] = ['label' => 'Користувачі', 'url' => ['/user/index']];
+            $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
         }
-
-        $menuItems[] = ['label' => 'Групи', 'url' => ['/group/index']];
+    if (\common\models\User::isRole(['Студент'])) {
+        $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
+        $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
         $menuItems[] = ['label' => 'Теми', 'url' => ['/topic/index']];
         $menuItems[] = ['label' => 'Завдання', 'url' => ['/workshop/index']];
         $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
+    }
 
     }
 

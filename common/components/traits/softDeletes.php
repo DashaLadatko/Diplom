@@ -50,7 +50,7 @@ trait softDeletes
     public function isActive()
     {
         $field = $this->fieldStatus();
-        return $this->$field === $this->inActiveStatus();
+        return $this->$field === $this->ActiveStatus();
     }
 
     # getters

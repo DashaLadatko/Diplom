@@ -21,7 +21,7 @@ class MarkSearch extends Mark
         return [
             [['id', 'user_id', 'workshop_id', 'evaluation', 'status', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['text', 'type'], 'safe'],
-            ['user_id', 'default', 'value' => User::isRole(['STUDENT']) ? Yii::$app->user->id : null],
+            ['user_id', 'default', 'value' => User::isRole(['Студент']) ? Yii::$app->user->id : null],
         ];
     }
 
