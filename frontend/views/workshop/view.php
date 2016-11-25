@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\models\User;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Workshop */
@@ -63,17 +64,42 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'created_by',
-                'value' => $model->created_by ? User::getById($model->created_by)->username : '',
+                'value' => $model->created_by ? User::getById($model->created_by)->getFullName() : '',
             ], [
                 'attribute' => 'updated_at',
                 'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
             ],
             [
                 'attribute' => 'updated_by',
-                'value' => $model->updated_by ? User::getById($model->updated_by)->username : '',
+                'value' => $model->updated_by ? User::getById($model->updated_by)->getFullName() : '',
             ],
         ],
 
     ]) ?>
+
+
+    <?php
+
+    echo '<h1>Файлы</h1>';
+    /**
+     * @var \common\models\Attachment $file
+     */
+    foreach ($model->getAttachments() as $file) { ?>
+        <div class='detail-view-files'>
+            <img src='<?= $file->miniature ?>' width='100' height='100' alt='<?= $file->real_name ?>'>
+            <p><?= $file->getBaseName(15) ?>
+<!--                --><?//= $file->type !== \common\components\upload\uploader::TYPE_UNKNOWN ? "<p><a href='$file->url' target=\"_blank\" ><i class=\"glyphicon glyphicon-eye-open\"></i>Open</a>" : ''; ?>
+            <p><a class="btn-download" style="cursor: pointer;" data-key="<?= $file->id ?>"><i class="glyphicon glyphicon-download"></i>Download</a>
+        </div>
+    <? }
+    ?>
+
+    <?php
+    $this->registerJs("
+         $('.btn-download').click(function () {
+             window.open('" . Url::toRoute('attachment/download') . "?id='+$(this).attr('data-key'));
+        });"
+    ); ?>
+
 
 </div>

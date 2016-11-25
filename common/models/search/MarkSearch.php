@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Mark;
+use common\models\User;
 
 /**
  * MarkSearch represents the model behind the search form about `common\models\Mark`.
@@ -20,6 +21,7 @@ class MarkSearch extends Mark
         return [
             [['id', 'user_id', 'workshop_id', 'evaluation', 'status', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['text', 'type'], 'safe'],
+            ['user_id', 'default', 'value' => User::isRole(['STUDENT']) ? Yii::$app->user->id : null],
         ];
     }
 

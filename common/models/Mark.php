@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\traits\attachmentSoft;
 use Yii;
 use yii\db\ActiveRecord;
 use common\components\extended\extActiveRecord;
@@ -28,6 +29,13 @@ use yii\behaviors\TimestampBehavior;
  */
 class Mark extends extActiveRecord
 {
+    use attachmentSoft;
+
+    const TYPE_ACCEPT = 0;
+    const TYPE_NO_ACCEPT = 1;
+
+    public $files;
+
     /**
      * @inheritdoc
      */
@@ -58,9 +66,16 @@ class Mark extends extActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'workshop_id', 'text', 'evaluation', 'type', 'status', 'role'], 'required'],
-            [['user_id', 'workshop_id', 'evaluation', 'status', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['type'], 'string'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['user_id', 'default', 'value' => Yii::$app->user->id],
+            ['evaluation', 'default', 'value' => 0],
+            ['type', 'default', 'value' => self::TYPE_NO_ACCEPT],
+
+
+            [['files'], 'file', 'maxFiles' => 10],
+
+            [['user_id', 'workshop_id', 'evaluation', 'type', 'status', 'role'], 'required'],
+            [['user_id', 'workshop_id', 'evaluation', 'status', 'type', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['text'], 'string', 'max' => 255],
             [['workshop_id'], 'exist', 'skipOnError' => true, 'targetClass' => Workshop::className(), 'targetAttribute' => ['workshop_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],

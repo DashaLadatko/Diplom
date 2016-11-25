@@ -28,26 +28,48 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Система дистанційного навчання',
+        'brandLabel' => 'СДН',
+//        'brandLabel' => 'Система дистанційного навчання',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-       // ['label' => 'Головна', 'url' => ['/site/index']],
-       // ['label' => 'Про нас', 'url' => ['/site/about']],
-        //['label' => 'Контакти', 'url' => ['/site/contact']],
-        ['label' => 'Факультети', 'url' => ['/faculty/index']],
-        ['label' => 'Кафедри', 'url' => ['/department/index']],
-        ['label' => 'Дисципліни', 'url' => ['/discipline/index']],
-        ['label' => 'Курси', 'url' => ['/course/index']],
-        ['label' => 'Групи', 'url' => ['/group/index']],
-        ['label' => 'Теми', 'url' => ['/topic/index']],
-        ['label' => 'Завдання', 'url' => ['/workshop/index']],
-        ['label' => 'Користувачі', 'url' => ['/user/index']],
-        ['label' => 'Профіль', 'url' => ['/user/view','id'=>Yii::$app->user->id]],
-    ];
+
+
+    $menuItems = [];
+
+    if (!Yii::$app->user->isGuest) {
+
+        if (\common\models\User::isRole(['STAFF','ADMIN'])) {
+            $menuItems[] = ['label' => 'Факультети', 'url' => ['/faculty/index']];
+            $menuItems[] = ['label' => 'Кафедри', 'url' => ['/department/index']];
+            $menuItems[] = ['label' => 'Дисципліни', 'url' => ['/discipline/index']];
+            $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
+            $menuItems[] = ['label' => 'Користувачі', 'url' => ['/user/index']];
+        }
+
+        $menuItems[] = ['label' => 'Групи', 'url' => ['/group/index']];
+        $menuItems[] = ['label' => 'Теми', 'url' => ['/topic/index']];
+        $menuItems[] = ['label' => 'Завдання', 'url' => ['/workshop/index']];
+        $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
+
+    }
+
+//    $menuItems = [
+//       // ['label' => 'Головна', 'url' => ['/site/index']],
+//       // ['label' => 'Про нас', 'url' => ['/site/about']],
+//        //['label' => 'Контакти', 'url' => ['/site/contact']],
+//        ['label' => 'Факультети', 'url' => ['/faculty/index']],
+//        ['label' => 'Кафедри', 'url' => ['/department/index']],
+//        ['label' => 'Дисципліни', 'url' => ['/discipline/index']],
+//        ['label' => 'Курси', 'url' => ['/course/index']],
+//        ['label' => 'Групи', 'url' => ['/group/index']],
+//        ['label' => 'Теми', 'url' => ['/topic/index']],
+//        ['label' => 'Завдання', 'url' => ['/workshop/index']],
+//        ['label' => 'Користувачі', 'url' => ['/user/index']],
+//        ['label' => 'Профіль', 'url' => ['/user/view','id'=>Yii::$app->user->id]],
+//    ];
 
     if (Yii::$app->user->isGuest) {
        // $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];

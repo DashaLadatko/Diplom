@@ -70,6 +70,18 @@ class UserController extends Controller
     }
 
     /**
+     * Displays a single User model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionProfile($id)
+    {
+        return $this->render('profile', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed

@@ -7,6 +7,7 @@ use kartik\tabs\TabsX;
 use common\models\User;
 use common\models\CourseGroupUser;
 use common\models\Group;
+use yii\helpers\Url;
 
 
 /* @var $this yii\web\View */
@@ -43,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         ?>
     </p>
+    <?= Html::a('mark', Url::toRoute(['/mark/index']), ['class' => 'btn btn-primary']); ?>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -51,9 +53,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
 //            'time_of_passage:datetime',
             [
-                'attribute'=> 'time_of_passage',
-                'format'=>'raw',
-                'value'=>  date('d-m-Y', $model->time_of_passage),
+                'attribute' => 'time_of_passage',
+                'format' => 'raw',
+                'value' => date('d-m-Y', $model->time_of_passage),
             ],
 //            'status',
 //            'created_at',
@@ -83,34 +85,91 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    <?php $active = Yii::$app->getRequest()->get('active');?>
     <?php
-    $tabs[0] = [
-        'label' => 'Групи',
-        'content' => $this->render('/group\index', [
-            'group_id' => $model->id,
-            'searchModel' => $ModelGroupUser,
-           'searchModelGroup' => $searchModelGroup,
-        ]),
-        'options' => ['group_id' => 'id'],
-        'active' => (!$active || $active == 'group')
 
-    ];
-    $tabs[1] = [
-        'label' => 'Групи',
-        'content' => 'text',
-        'active' => true
-    ];
+    $array = $model->workshops;
+    $lab = 0;
+    $lec = 0;
+    $pra = 0;
+    $sem = 0;
+
+    echo '<h1>Лабораторные</h1>';
+
+    foreach ($array as $key => $item) {
+        if ($item->type === \common\models\Workshop::type_laboratory) {
+            echo ++$lab . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+        }
+    }
+    if (!$lab) {
+        echo '<p>Лабораторных не найдено</p>';
+    }
+
+
+    echo '<h1>Лекции</h1>';
+
+    foreach ($array as $key => $item) {
+        if ($item->type === \common\models\Workshop::type_lecture) {
+            echo ++$lec . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+        }
+    }
+
+    if (!$lec) {
+        echo '<p>Лекции не найдено</p>';
+    }
+
+
+    echo '<h1>Практические</h1>';
+
+    foreach ($array as $key => $item) {
+        if ($item->type === \common\models\Workshop::type_practical) {
+            echo ++$pra . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+        }
+    }
+
+    if (!$pra) {
+        echo '<p>Практическиех не найдено</p>';
+    }
+
+    echo '<h1>Семинары</h1>';
+
+    foreach ($array as $key => $item) {
+        if ($item->type === \common\models\Workshop::type_seminar) {
+            echo ++$sem . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+        }
+    }
+
+    if (!$sem) {
+        echo '<p>Семинаров не найдено</p>';
+    }
 
     ?>
-    <?= TabsX::widget([
-        'position' => TabsX::POS_ABOVE,
-        'align' => TabsX::ALIGN_LEFT,
-        'bordered'=>true,
-        'items' => $tabs
-    ]);
-
-    $this->title = $model->name;
-    ?>
+    <!--    --><?php
+    //    $tabs[0] = [
+    //        'label' => 'Групи',
+    //        'content' => $this->render('/group\index', [
+    //            'group_id' => $model->id,
+    //            'searchModel' => $ModelGroupUser,
+    //           'searchModelGroup' => $searchModelGroup,
+    //        ]),
+    //        'options' => ['group_id' => 'id'],
+    //        'active' => (!$active || $active == 'group')
+    //
+    //    ];
+    //    $tabs[1] = [
+    //        'label' => 'Групи',
+    //        'content' => 'text',
+    //        'active' => true
+    //    ];
+    //
+    //    ?>
+    <!--    --><? //= TabsX::widget([
+    //        'position' => TabsX::POS_ABOVE,
+    //        'align' => TabsX::ALIGN_LEFT,
+    //        'bordered'=>true,
+    //        'items' => $tabs
+    //    ]);
+    //
+    //    $this->title = $model->name;
+    //    ?>
 
 </div>
