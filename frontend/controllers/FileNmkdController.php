@@ -2,9 +2,12 @@
 
 namespace frontend\controllers;
 
+
 use Yii;
 use common\models\Filenmkd;
 use common\models\search\FilenmkdSearch;
+use common\models\Uploadfile;
+use yii\web\UploadedFile;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -61,18 +64,64 @@ class FilenmkdController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($action = 0)
     {
-        $model = new Filenmkd();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $disciplines = Yii::$app->db->createCommand(
+            'select discipline.id, discipline.name from user, discipline, discipline_user
+            WHERE discipline_user.discipline_id = discipline.id and discipline_user.user_id = user.id AND user.id = 3')
+            ->queryAll();
+        if ($action === 0 || $action === '') {
+            $components = array();
+
+        }else{
+            $components = Yii::$app->db->createCommand(
+                'select id, component_nmkd.name from component_nmkd where id NOT IN (select component_nmkd_id from file_nmkd
+            WHERE discipline_id = ' . $action . ' AND user_id = 3)')
+                ->queryAll();
+
+        }
+
+
+        if (Yii::$app->request->post()) {
+            if(!empty(Yii::$app->request->post('component'))) {
+                foreach(Yii::$app->request->post('component') as $check) {
+                    $model = new Filenmkd();
+                    $model->component_nmkd_id = $check;
+                    $model->user_id = 3;
+                    $model->name = '';
+                    $model->discipline_id = Yii::$app->request->post('list');
+                    $model->signature = 'not loaded';
+                    $model->protocol_chair =0;
+                    $model->protocol_fuculty =0;
+                    $model->protocol_university =0;
+                    $model->total =0;
+                    $model->created_at = time();
+                    $model->created_by = 3;//user_id
+                    $model->updated_at = time();
+                    $model->updated_by=3;//user_id
+                    $model->comment = '';
+
+                    $model->save();
+                }
+            }
+
+            return $this->redirect(['index',]);
+        } else {
+            return $this->render('create', ['components' =>$components,'disciplines' => $disciplines,]);
+        }
+
+        /*
+       if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $model, 'components' =>$components,
             ]);
-        }
+        }*/
     }
+
+
 
     /**
      * Updates an existing Filenmkd model.
@@ -82,13 +131,21 @@ class FilenmkdController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
 
+        $model = $this->findModel($id);
+        $file = new Uploadfile();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $file->imageFile = UploadedFile::getInstance($file, 'imageFile');
+            if ($file->upload()) {
+                $model->name = $file->imageFile->name;
+                $model->save();
+                // file is uploaded successfully return;
+
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model, 'file' =>$file,
             ]);
         }
     }
@@ -99,6 +156,20 @@ class FilenmkdController extends Controller
      * @param integer $id
      * @return mixed
      */
+    public function actionUpload()
+    {
+        $model = new Uploadfile();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = Uploadfile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // file is uploaded successfully
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();

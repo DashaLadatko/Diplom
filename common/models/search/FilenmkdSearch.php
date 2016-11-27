@@ -12,6 +12,9 @@ use common\models\Filenmkd;
  */
 class FilenmkdSearch extends Filenmkd
 {
+    public $disciplineName;
+    public $fullName;
+    public $componentNmkd;
     /**
      * @inheritdoc
      */
@@ -20,6 +23,9 @@ class FilenmkdSearch extends Filenmkd
         return [
             [['id', 'discipline_id', 'component_nmkd_id', 'user_id', 'protocol_chair', 'protocol_fuculty', 'protocol_university', 'total', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name', 'signature', 'comment'], 'safe'],
+            [['disciplineName'], 'safe'],
+            [['fullName'], 'safe'],
+            [['componentNmkd'], 'safe']
         ];
     }
 
@@ -75,7 +81,8 @@ class FilenmkdSearch extends Filenmkd
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'signature', $this->signature])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
+            ->andFilterWhere(['like', 'comment', $this->comment])
+            ->andFilterWhere(['like', 'discipline.name', $this->disciplineName]);
 
         return $dataProvider;
     }

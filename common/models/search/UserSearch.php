@@ -12,6 +12,7 @@ use common\models\User;
  */
 class UserSearch extends User
 {
+    public $fullName;
     /**
      * @inheritdoc
      */

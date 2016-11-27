@@ -43,12 +43,12 @@ class Filenmkd extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['discipline_id', 'component_nmkd_id', 'name', 'user_id', 'signature'], 'required'],
+            [['discipline_id', 'component_nmkd_id', 'user_id', 'signature'], 'required'],
             [['discipline_id', 'component_nmkd_id', 'user_id', 'protocol_chair', 'protocol_fuculty', 'protocol_university', 'total', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['signature'], 'string'],
             [['name', 'comment'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-            [['component_nmkd_id'], 'exist', 'skipOnError' => true, 'targetClass' => ComponentNmkd::className(), 'targetAttribute' => ['component_nmkd_id' => 'id']],
+            [['component_nmkd_id'], 'exist', 'skipOnError' => true, 'targetClass' => Componentnmkd::className(), 'targetAttribute' => ['component_nmkd_id' => 'id']],
             [['discipline_id'], 'exist', 'skipOnError' => true, 'targetClass' => Discipline::className(), 'targetAttribute' => ['discipline_id' => 'id']],
         ];
     }
@@ -62,14 +62,14 @@ class Filenmkd extends \yii\db\ActiveRecord
             'id' => 'ID',
             'discipline_id' => 'Discipline ID',
             'component_nmkd_id' => 'Component Nmkd ID',
-            'name' => 'Name',
+            'name' => 'Назва файлу',
             'user_id' => 'User ID',
-            'signature' => 'Signature',
-            'protocol_chair' => 'Protocol Chair',
-            'protocol_fuculty' => 'Protocol Fuculty',
-            'protocol_university' => 'Protocol University',
-            'comment' => 'Comment',
-            'total' => 'Total',
+            'signature' => 'Статус',
+            'protocol_chair' => 'Протокол кафедри',
+            'protocol_fuculty' => 'Протокол факультету',
+            'protocol_university' => 'Протокол університету',
+            'comment' => 'Коментар',
+            'total' => 'Остаточно затверджено',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
@@ -88,9 +88,9 @@ class Filenmkd extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getComponentNmkd()
+    public function getComponentnmkd()
     {
-        return $this->hasOne(ComponentNmkd::className(), ['id' => 'component_nmkd_id']);
+        return $this->hasOne(Componentnmkd::className(), ['id' => 'component_nmkd_id']);
     }
 
     /**
@@ -99,5 +99,18 @@ class Filenmkd extends \yii\db\ActiveRecord
     public function getDiscipline()
     {
         return $this->hasOne(Discipline::className(), ['id' => 'discipline_id']);
+    }
+
+    public function getDisciplineName()
+    {
+        return $this->discipline->name;
+    }
+    public function getFullName()
+    {
+        return $this->user->fullname;
+    }
+    public function getComponentnmkdName()
+    {
+        return $this->componentnmkd->name;
     }
 }

@@ -46,6 +46,7 @@ AppAsset::register($this);
         ['label' => 'Теми', 'url' => ['/topic/index']],
         ['label' => 'Завдання', 'url' => ['/workshop/index']],
         ['label' => 'Користувачі', 'url' => ['/user/index']],
+        ['label' => 'НМКД', 'url' => ['/filenmkd/index']],
         ['label' => 'Профіль', 'url' => ['/user/view','id'=>Yii::$app->user->id]],
     ];
 
