@@ -78,7 +78,7 @@ trait uploaderSoft
                     'obj_type' => $type,
                     'type' => $file->typeByExtension,
                     'real_name' => $file->realName,
-                    'thumbnail_path' => $file->thumbnailPath,
+//                    'thumbnail_path' => $file->thumbnailPath,
                     'show' => (int)$show
                 ], $file->fullPath, $file->isBase64);
             }
@@ -111,7 +111,7 @@ trait uploaderSoft
                         'obj_type' => $type,
                         'type' => $attachment->typeByExtension,
                         'real_name' => $attachment->realName,
-                        'thumbnail_path' => $attachment->thumbnailPath,
+//                        'thumbnail_path' => $attachment->thumbnailPath,
                         'show' => $show
                     ], $path);
                 }
@@ -233,7 +233,7 @@ trait uploaderSoft
 
     public static function getBase()
     {
-        $folder = isset(Yii::$app->uploader->folder) ? '/' . Yii::$app->uploader->folder : '';
+        $folder = empty(Yii::$app->uploader->folder) ? '' : '/' . Yii::$app->uploader->folder;
         return Yii::$app->urlManager->getHostInfo() . $folder . '/' . Yii::$app->uploader->module . '/web/';
     }
 

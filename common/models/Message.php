@@ -71,10 +71,10 @@ class Message extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'to_user_id' => 'To User ID',
-            'from_user_id' => 'From User ID',
-            'text' => 'Text',
-            'read_or_not' => 'Read Or Not',
+            'to_user_id' => 'Кому',
+            'from_user_id' => 'Від кого',
+            'text' => 'Повідомлення',
+            'read_or_not' => 'Прочитано',
             'status' => 'Status',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
@@ -98,4 +98,14 @@ class Message extends extActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'to_user_id']);
     }
+
+    public static function dialogButton($model)
+    {
+        $modelM = self::find()->where(['from_user_id' => $model->id, 'read_or_not' => 1])->all();
+        foreach($modelM as $value){
+            $value->read_or_not = 0;
+            $value->save();
+        }
+    }
 }
+

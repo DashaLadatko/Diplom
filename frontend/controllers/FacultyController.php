@@ -2,7 +2,6 @@
 
 namespace frontend\controllers;
 
-use common\models\User;
 use Yii;
 use common\models\Faculty;
 use common\models\search\FacultySearch;
@@ -11,6 +10,7 @@ use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\User;
 
 /**
  * FacultyController implements the CRUD actions for Faculty model.
@@ -77,7 +77,7 @@ class FacultyController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Faculty();# ты вгружешь load потом валидируешь (validate)! и только потом сохраняешь (save)
+        $model = new Faculty();# вгружешь load потом валидируешь (validate)! и только потом сохраняешь (save)
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -114,13 +114,14 @@ class FacultyController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+
     }
 
     /**
@@ -131,8 +132,7 @@ class FacultyController extends Controller
      */
     public function actionRestore($id)
     {
-
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 

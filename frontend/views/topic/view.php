@@ -7,6 +7,7 @@ use kartik\tabs\TabsX;
 use common\models\User;
 use common\models\CourseGroupUser;
 use common\models\Group;
+use yii\helpers\Url;
 
 
 /* @var $this yii\web\View */
@@ -43,6 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         ?>
     </p>
+    <?= Html::a('mark', Url::toRoute(['/mark/index']), ['class' => 'btn btn-primary']); ?>
+    <?= Html::a('Завдання', Url::toRoute(['/workshop/create']), ['class' => 'btn btn-primary']); ?>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -51,15 +54,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
 //            'time_of_passage:datetime',
             [
-                'attribute'=> 'time_of_passage',
-                'format'=>'raw',
-                'value'=>  date('d-m-Y', $model->time_of_passage),
+                'attribute' => 'time_of_passage',
+                'format' => 'raw',
+                'value' => date('d-m-Y', $model->time_of_passage),
             ],
 //            'status',
 //            'created_at',
 //            'created_by',
 //            'updated_at',
 //            'updated_by',
+            [
+                'attribute' => 'course_id',
+                'value' => $model->getTopicCourses(),
+                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
+            ],
             [
                 'attribute' => 'status',
                 'value' => $model->getStatusLabel(),
@@ -71,46 +79,103 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'created_by',
-                'value' => $model->created_by ? User::getById($model->created_by)->username : '',
+                'value' => $model->created_by ? User::getById($model->created_by)->email : '',
             ], [
                 'attribute' => 'updated_at',
                 'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
             ],
             [
                 'attribute' => 'updated_by',
-                'value' => $model->updated_by ? User::getById($model->updated_by)->username : '',
+                'value' => $model->updated_by ? User::getById($model->updated_by)->email: '',
             ],
         ],
     ]) ?>
 
-    <?php $active = Yii::$app->getRequest()->get('active');?>
     <?php
-    $tabs[0] = [
-        'label' => 'Групи',
-        'content' => $this->render('/group\index', [
-            'group_id' => $model->id,
-            'searchModel' => $ModelGroupUser,
-           'searchModelGroup' => $searchModelGroup,
-        ]),
-        'options' => ['group_id' => 'id'],
-        'active' => (!$active || $active == 'group')
 
-    ];
-    $tabs[1] = [
-        'label' => 'Групи',
-        'content' => 'text',
-        'active' => true
-    ];
+    $array = $model->workshops;
+    $lab = 0;
+    $lec = 0;
+    $pra = 0;
+    $sem = 0;
+
+
+    echo '<h1>Лекції теми</h1>';
+
+    foreach ($array as $key => $item) {
+        if ($item->type === \common\models\Workshop::type_lecture) {
+            echo ++$lec . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+        }
+    }
+
+    if (!$lec) {
+        echo '<p>Лекцій не знайдено</p>';
+    }
+
+    echo '<h1>Лабораторні роботи</h1>';
+
+    foreach ($array as $key => $item) {
+        if ($item->type === \common\models\Workshop::type_laboratory) {
+            echo ++$lab . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+        }
+    }
+    if (!$lab) {
+        echo '<p>Лабораторних робіт не знайдено</p>';
+    }
+
+
+    echo '<h1>Практичні роботи</h1>';
+
+    foreach ($array as $key => $item) {
+        if ($item->type === \common\models\Workshop::type_practical) {
+            echo ++$pra . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+        }
+    }
+
+    if (!$pra) {
+        echo '<p>Практичних робіт не найдено</p>';
+    }
+
+//    echo '<h1>Семинары</h1>';
+//
+//    foreach ($array as $key => $item) {
+//        if ($item->type === \common\models\Workshop::type_seminar) {
+//            echo ++$sem . '. <a href=' . Url::toRoute(['/workshop/view', 'id' => $item->id]) . ">$item->name</a><br>";
+//        }
+//    }
+//
+//    if (!$sem) {
+//        echo '<p>Семинаров не найдено</p>';
+//    }
 
     ?>
-    <?= TabsX::widget([
-        'position' => TabsX::POS_ABOVE,
-        'align' => TabsX::ALIGN_LEFT,
-        'bordered'=>true,
-        'items' => $tabs
-    ]);
-
-    $this->title = $model->name;
-    ?>
+    <!--    --><?php
+    //    $tabs[0] = [
+    //        'label' => 'Групи',
+    //        'content' => $this->render('/group\index', [
+    //            'group_id' => $model->id,
+    //            'searchModel' => $ModelGroupUser,
+    //           'searchModelGroup' => $searchModelGroup,
+    //        ]),
+    //        'options' => ['group_id' => 'id'],
+    //        'active' => (!$active || $active == 'group')
+    //
+    //    ];
+    //    $tabs[1] = [
+    //        'label' => 'Групи',
+    //        'content' => 'text',
+    //        'active' => true
+    //    ];
+    //
+    //    ?>
+    <!--    --><? //= TabsX::widget([
+    //        'position' => TabsX::POS_ABOVE,
+    //        'align' => TabsX::ALIGN_LEFT,
+    //        'bordered'=>true,
+    //        'items' => $tabs
+    //    ]);
+    //
+    //    $this->title = $model->name;
+    //    ?>
 
 </div>

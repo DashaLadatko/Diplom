@@ -44,7 +44,7 @@ AppAsset::register($this);
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Вихід (' . Yii::$app->user->identity->username . ')',
+                'Вихід (' . Yii::$app->user->identity->email . ')',
                 ['class' => 'btn btn-link']
             )
             . Html::endForm()

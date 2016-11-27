@@ -6,9 +6,10 @@ use Yii;
 use common\models\Workshop;
 use common\models\search\WorkshopSearch;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use common\models\User;
 /**
  * WorkshopController implements the CRUD actions for Workshop model.
  */
@@ -112,7 +113,7 @@ class WorkshopController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (in_array(Yii::$app->user->identity->role, array([User::ROLE_ADMIN, User::ROLE_STAFF]))) {
             throw new ForbiddenHttpException('Access denied');
         }
 

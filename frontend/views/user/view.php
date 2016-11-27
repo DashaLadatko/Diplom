@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]);
-        } else {
+        } elseif(Yii::$app->user->id !== $model->id) {
             echo Html::a('Відновити', ['restore', 'id' => $model->id], [
                 'class' => 'btn btn-success',
                 'data' => [
@@ -39,43 +39,18 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </p>
 
+
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+//            'id',
+            'last_name',
             'first_name',
             'second_name',
-            'last_name',
-//            'auth_key',
-//            'password_hash',
-//            'password_reset_token',
             'email:email',
-            'status',
+//            'status',
             'role',
-//            'created_at',
-//            'created_by',
-//            'updated_at',
-//            'updated_by',
-            [
-                'attribute' => 'status',
-                'value' => $model->getStatusLabel(),
-                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
-            ],
-            [
-                'attribute' => 'created_at',
-                'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
-            ],
-            [
-                'attribute' => 'created_by',
-                'value' => $model->created_by ? User::getById($model->created_by)->email : '',
-            ], [
-                'attribute' => 'updated_at',
-                'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
-            ],
-            [
-                'attribute' => 'updated_by',
-                'value' => $model->updated_by ? User::getById($model->updated_by)->email : '',
-            ],
         ],
 
     ]) ?>

@@ -35,9 +35,14 @@ class User extends extUser
 
     const FIELD_ROLE = 'role';
 
-    public static $roles = [
-        0 => 'ADMIN'
+    const ROLE_ADMIN = 0;
+    const ROLE_STAFF = 1;
+    const ROLE_STUDENT = 2;
 
+    public static $roles = [
+        self::ROLE_ADMIN => 'Admin',
+        self::ROLE_STAFF => 'Staff',
+        self::ROLE_ADMIN => 'Student',
     ];
 
     public $password;
@@ -77,7 +82,7 @@ class User extends extUser
             ['password', 'string', 'min' => 6],
             [['auth_key'], 'string', 'max' => 32],
             [['status', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['last_name', 'first_name', 'password_hash', 'password_reset_token', 'email', 'password'], 'string', 'max' => 255],
+            [['last_name', 'first_name','second_name', 'password_hash', 'password_reset_token', 'email', 'password'], 'string', 'max' => 255],
         ];
     }
 
@@ -87,8 +92,9 @@ class User extends extUser
             'id' => 'ID',
             'first_name' => 'Ім\'я',
             'last_name' => 'Прізвище',
-            'auth_key' => 'Auth Key',
-            'password_hash' => 'Password Hash',
+            'second_name' => 'По-батькові',
+            'auth_key' => 'Пароль',
+            'password_hash' => 'Пароль',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
             'status' => 'Статус',
@@ -128,7 +134,7 @@ class User extends extUser
      */
     public static function isRole(array $arrayRoles)
     {
-        return in_array(Yii::$app->user->identity->role, $arrayRoles, false);
+        return in_array(self::$roles[Yii::$app->user->identity->role], $arrayRoles, false);
     }
 
     /**
