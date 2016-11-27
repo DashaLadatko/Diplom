@@ -126,7 +126,7 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 
@@ -152,7 +152,7 @@ class UserController extends Controller
     public function actionRestore($id)
     {
 
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 

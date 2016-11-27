@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use common\models\User;
 
 AppAsset::register($this);
 ?>
@@ -46,7 +47,7 @@ AppAsset::register($this);
 
     if (!Yii::$app->user->isGuest) {
 
-        if (\common\models\User::isRole(['Адмін'])) {
+        if (\common\models\User::isRole(['Admin'])) {
             $menuItems[] = ['label' => 'Факультети', 'url' => ['/faculty/index']];
             $menuItems[] = ['label' => 'Кафедри', 'url' => ['/department/index']];
             $menuItems[] = ['label' => 'Дисципліни', 'url' => ['/discipline/index']];
@@ -56,7 +57,7 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Користувачі', 'url' => ['/user/index']];
             $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
         }
-    if (\common\models\User::isRole(['Студент'])) {
+    if (\common\models\User::isRole(['Student'])) {
         $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
         $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
         $menuItems[] = ['label' => 'Теми', 'url' => ['/topic/index']];

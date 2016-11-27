@@ -19,9 +19,9 @@ class MarkSearch extends Mark
     public function rules()
     {
         return [
-            [['id', 'user_id', 'workshop_id', 'evaluation', 'status', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['id', 'user_id', 'workshop_id', 'evaluation', 'status',  'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['text', 'type'], 'safe'],
-            ['user_id', 'default', 'value' => User::isRole(['Студент']) ? Yii::$app->user->id : null],
+            ['user_id', 'default', 'value' => User::isRole(['Student']) ? Yii::$app->user->id : null],
         ];
     }
 
@@ -66,7 +66,6 @@ class MarkSearch extends Mark
             'workshop_id' => $this->workshop_id,
             'evaluation' => $this->evaluation,
             'status' => $this->status,
-            'role' => $this->role,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
             'updated_at' => $this->updated_at,

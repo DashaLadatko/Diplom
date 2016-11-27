@@ -6,9 +6,12 @@ use Yii;
 use common\models\Discipline;
 use common\models\search\DisciplineSearch;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\User;
+
+
 
 /**
  * DisciplineController implements the CRUD actions for Discipline model.
@@ -113,7 +116,7 @@ class DisciplineController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 
@@ -131,7 +134,7 @@ class DisciplineController extends Controller
     public function actionRestore($id)
     {
 
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 

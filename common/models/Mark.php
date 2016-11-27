@@ -74,8 +74,8 @@ class Mark extends extActiveRecord
 
             [['files'], 'file', 'maxFiles' => 10],
 
-            [['user_id', 'workshop_id', 'evaluation', 'type', 'status', 'role'], 'required'],
-            [['user_id', 'workshop_id', 'evaluation', 'status', 'type', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['user_id', 'workshop_id', 'evaluation', 'type', 'status'], 'required'],
+            [['user_id', 'workshop_id', 'evaluation', 'status', 'type', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['text'], 'string', 'max' => 255],
             [['workshop_id'], 'exist', 'skipOnError' => true, 'targetClass' => Workshop::className(), 'targetAttribute' => ['workshop_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -95,7 +95,6 @@ class Mark extends extActiveRecord
             'evaluation' => 'Evaluation',
             'type' => 'Type',
             'status' => 'Status',
-            'role' => 'Role',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',

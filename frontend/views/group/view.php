@@ -60,14 +60,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'created_by',
-                'value' => $model->created_by ? User::getById($model->created_by)->username : '',
+                'value' => $model->created_by ? User::getById($model->created_by)->email : '',
             ], [
                 'attribute' => 'updated_at',
                 'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
             ],
             [
                 'attribute' => 'updated_by',
-                'value' => $model->updated_by ? User::getById($model->updated_by)->username : '',
+                'value' => $model->updated_by ? User::getById($model->updated_by)->email : '',
             ],
         ],
     ]) ?>
