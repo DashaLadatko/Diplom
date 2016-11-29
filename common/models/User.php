@@ -38,11 +38,16 @@ class User extends extUser
     const ROLE_ADMIN = 0;
     const ROLE_STAFF = 1;
     const ROLE_STUDENT = 2;
+    const ROLE_ADMINNMKD = 3;
+    const ROLE_DEPARTMENTHEAD = 4;
 
     public static $roles = [
         self::ROLE_ADMIN => 'Admin',
         self::ROLE_STAFF => 'Staff',
-        self::ROLE_ADMIN => 'Student',
+        self::ROLE_STUDENT => 'Student',
+        self::ROLE_ADMINNMKD => 'AdminNMKD',
+        self::ROLE_DEPARTMENTHEAD => 'DepartmentHead',
+
     ];
 
     public $password;

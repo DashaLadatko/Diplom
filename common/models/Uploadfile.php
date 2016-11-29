@@ -18,10 +18,14 @@ class Uploadfile extends Model
         ];
     }
 
-    public function upload()
+    public function upload($user_id)
     {
+        $path = '../../frontend/web/uploads/' .$user_id;
         if ($this->validate()) {//продумать создадить - папку с ай ди юзера
-            $this->imageFile->saveAs('D:/OpenServer/domains/Diplom/uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            if(!file_exists($path)) {
+                mkdir($path, 0775, true);
+            }
+            $this->imageFile->saveAs($path .'/'. $this->imageFile->baseName . '.' . $this->imageFile->extension);
             return true;
         } else {
             return false;

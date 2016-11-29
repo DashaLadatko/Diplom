@@ -18,8 +18,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'componentnmkdName')->textInput(['readonly'=>'readonly']) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($file, 'imageFile')->fileInput() ?>
+    <?php if($model->name === '' || $model->name === NULL ){ if(  $model->user_id === Yii::$app->user->identity->getId()){?>
+        <?=  Html::a('Завантажити файл на сервер', ['file', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+    <?php }} else { ?>
+        <?=  Html::a('Завантажити файл на пк '.$model->name, ['download', 'id' => $model->id], ['class' => 'profile-link']) ?>
+        <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'readonly'=>'readonly']) ?>
+        <?php if(  $model->user_id === Yii::$app->user->identity->getId()){?>
+            <?=  Html::a('Видалити файл', ['deletefile', 'id' => $model->id], ['class' => 'profile-link','data' => [
+                'confirm' => 'Ви дійсно хочете видалити файл?',
+                'method' => 'post',
+            ]]) ?>
+        <?php } } ?>
 
     <?= $form->field($model, 'fullName')->textInput(['readonly'=>'readonly']) ?>
 
@@ -32,13 +41,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'protocol_university')->checkbox(['label' => 'Протокол університету' ]) ?>
 
-    <?= $form->field($model, 'comment')->textInput(['maxlength' => true, 'readonly'=>'readonly']) ?>
+    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'total')->checkbox([
         'labelOptions' => [
             'style' => 'padding-left:20px;'
         ],
-        'disabled' => true]) ?>
+        'disabled' => false]) ?>
 
     <?= $form->field($model, 'created_at')->textInput(['readonly'=>'readonly']) ?>
 

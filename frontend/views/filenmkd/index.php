@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Додати НМКД', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Файли НМКД', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    <?= GridView::widget([
@@ -29,20 +29,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'discipline_id',
+            // 'discipline_id',
             //'component_nmkd_id',
             'name',
             //'user_id',
             'disciplineName',
             'fullName',
             'componentnmkdName',
-            'signature',
-            'protocol_chair',
-            'protocol_fuculty',
-            'protocol_university',
-            'comment',
+            ['label'=>'signature',
+                'attribute'=>'signature',
+                'filter'=>array('not loaded'=>'not loaded', 'out for approval'=> 'out for approval', 'rejected'=> 'rejected',)],
 
-            'total',
+            //'protocol_chair',
+            ['label'=>'protocol_chair',
+                'attribute'=>'protocol_chair',
+                'filter'=>array('0'=>'NO', '1'=> 'YES',)],
+            //'protocol_fuculty',
+            ['label'=>'protocol_fuculty',
+                'attribute'=>'protocol_fuculty',
+                'filter'=>array('0'=>'NO', '1'=> 'YES',)],
+            // 'protocol_university',
+            ['label'=>'protocol_university',
+                'attribute'=>'protocol_university',
+                'filter'=>array('0'=>'NO', '1'=> 'YES',)],
+            'comment',
+            ['label'=>'total',
+                'attribute'=>'total',
+                'filter'=>array('0'=>'NO', '1'=> 'YES',)],
+            //'total',
 
             // 'created_at',
             // 'created_by',

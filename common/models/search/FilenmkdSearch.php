@@ -79,10 +79,17 @@ class FilenmkdSearch extends Filenmkd
             'updated_by' => $this->updated_by,
         ]);
 
+        $query->joinWith(['discipline']);
+        $query->joinWith(['user']);
+
+
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'signature', $this->signature])
             ->andFilterWhere(['like', 'comment', $this->comment])
+            ->andFilterWhere(['like', 'user.last_name', $this->fullName])
             ->andFilterWhere(['like', 'discipline.name', $this->disciplineName]);
+
+
 
         return $dataProvider;
     }
