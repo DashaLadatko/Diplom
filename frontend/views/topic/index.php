@@ -8,6 +8,7 @@ use common\models\User;
 /* @var $searchModel common\models\search\TopicSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+
 $this->title = 'Теми';
 $this->params['breadcrumbs'][] = $this->title;
 ?>

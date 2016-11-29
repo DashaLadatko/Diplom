@@ -3,7 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
 use common\models\User;
+use common\models\Department;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\DisciplineSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -32,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->department->name;
                 },
 //                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
-//                'filter' => Html::activeDropDownList($searchModel, 'status', User::getArrayStatus(), ['prompt' => '', 'class' => 'form-control']),
+                'filter' => Html::activeDropDownList($searchModel, 'name', ArrayHelper::map(Department::find()->where(['status' => Department::STATUS_ACTIVE])->all(), 'id', 'name'), ['prompt' => 'Виберіть кафедру...', 'class' => 'form-control']),
             ],
             'name',
            // 'status',

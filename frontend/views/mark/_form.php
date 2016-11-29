@@ -23,7 +23,7 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'text')->textarea(); ?>
 
-    <? if (\common\models\User::isRole(['STAFF', 'ADMIN'])) {
+    <? if (\common\models\User::isRole(['Staff', 'Admin'])) {
         echo $form->field($model, 'evaluation')->dropDownList(['1' => '1', '2' => '2', '3' => '3', '4' => '4',], ['prompt'=>'Choose...']);
 
         echo $form->field($model, 'type')->dropDownList([\common\models\Mark::TYPE_ACCEPT => 'ACCEPT', \common\models\Mark::TYPE_NO_ACCEPT => 'NO_ACCEPT'], ['prompt'=>'Choose...']);

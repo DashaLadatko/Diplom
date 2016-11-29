@@ -28,39 +28,41 @@ $this->title = $model->getFullName();
                 <div class=" col-md-9 col-lg-9 ">
                   <table class="table table-user-information">
                     <tbody>
+
+                    <tr>
+                        <td>Прізвище</td>
+                        <td><?= $model->last_name?></td>
+                    </tr>
+
                       <tr>
-                        <td>Роль:</td>
-                        <td><?= $model->roleName()?></td>
-                      </tr>
-                      <tr>
-                        <td>Date of Birth</td>
-                        <td>01/24/1988</td>
+                        <td>Ім'я</td>
+                        <td><?= $model->first_name?></td>
                       </tr>
 
-                         <tr>
-<!--                             <tr>-->
-<!--                        <td>Gender</td>-->
-<!--                        <td>Female</td>-->
-<!--                      </tr>-->
-                        <tr>
-                        <td>Home Address</td>
-                        <td>Kathmandu,Nepal</td>
+                      <tr>
+                          <td>По-батькові</td>
+                          <td><?= $model->second_name?></td>
                       </tr>
+
                       <tr>
                         <td>Email</td>
                         <td><a href="mailto:info@support.com"><?= $model->email?></a></td>
-                      </tr>
-                        <td>Phone Number</td>
-                        <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
-</td>
-
+<!--                      </tr>-->
+<!--                        <td>Phone Number</td>-->
+<!--                        <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)-->
+<!--</td>-->
+<!---->
+<!--                      </tr>-->
+                      <tr>
+                          <td>Роль:</td>
+                          <td><?= $model->roleName()?></td>
                       </tr>
 
                     </tbody>
                   </table>
 
-<!--                  <a href="#" class="btn btn-primary">My Sales Performance</a>-->
-<!--                  <a href="#" class="btn btn-primary">Team Sales Performance</a>-->
+                  <a href="<?= \yii\helpers\Url::toRoute(['user/changepassword', 'id' => Yii::$app->user->id])?>" class="btn btn-primary">Змінити пароль</a>
+<!--                  <a href="" class="btn btn-primary">Team Sales Performance</a>-->
                 </div>
               </div>
             </div>

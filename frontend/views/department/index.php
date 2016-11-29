@@ -29,15 +29,25 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
 //            'faculty_id',
+
             [
                 'attribute' => 'faculty_id',
                 'value' => function ($data) {
                     return $data->faculty->name;
 
                 },
-//                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
-                'filter' => Html::activeDropDownList($searchModel, 'name', ArrayHelper::map(Faculty::find()->all(), 'id', 'name'), ['prompt' => 'Виберіть факультет...', 'class' => 'form-control']),
+                'filter' => \kartik\select2\Select2::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'faculty_id',
+                    'data' => ArrayHelper::map(Faculty::find()->where(['status' => Faculty::STATUS_ACTIVE])->all(), 'id', 'name'),
+                    'options' => ['placeholder' => 'Выберите округ ...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]),
+//                'visible' => (!empty($visibleFields)) ? in_array('areaName', $visibleFields) : true,
             ],
+
             'name',
            //'created_at',
             [

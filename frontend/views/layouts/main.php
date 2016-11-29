@@ -19,6 +19,8 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <script src="http://diplom/frontend/web/js/jquery-3.1.1.min.js"></script>-->
+
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -38,12 +40,12 @@ AppAsset::register($this);
     ]);
 
 
-//    $menuItems = [
-//        ['label' => 'Головна', 'url' => ['/site/index']],
-//        ['label' => 'Про нас', 'url' => ['/site/about']],
-//        ['label' => 'Контакти', 'url' => ['/site/contact']],
-//
-//    ];
+    //    $menuItems = [
+    //        ['label' => 'Головна', 'url' => ['/site/index']],
+    //        ['label' => 'Про нас', 'url' => ['/site/about']],
+    //        ['label' => 'Контакти', 'url' => ['/site/contact']],
+    //
+    //    ];
 
     if (!Yii::$app->user->isGuest) {
 
@@ -57,34 +59,48 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Користувачі', 'url' => ['/user/index']];
             $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
         }
-    if (\common\models\User::isRole(['Student'])) {
-        $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
-        $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
-        $menuItems[] = ['label' => 'Теми', 'url' => ['/topic/index']];
-        $menuItems[] = ['label' => 'Завдання', 'url' => ['/workshop/index']];
-        $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
-    }
+        if (\common\models\User::isRole(['Student'])) {
+            $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
+            $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
+            $menuItems[] = ['label' => 'Теми', 'url' => ['/topic/index']];
+            $menuItems[] = ['label' => 'Завдання', 'url' => ['/workshop/index']];
+            $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
+        }
+        if (\common\models\User::isRole(['Staff'])) {
+            $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
+            $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
+            $menuItems[] = ['label' => 'Теми', 'url' => ['/topic/index']];
+            $menuItems[] = ['label' => 'Завдання', 'url' => ['/workshop/index']];
+            $menuItems[] = ['label' => 'Відповіді', 'url' => ['/mark/index']];
+            $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
+        }
 
     }
 
-//    $menuItems = [
-//       // ['label' => 'Головна', 'url' => ['/site/index']],
-//       // ['label' => 'Про нас', 'url' => ['/site/about']],
-//        //['label' => 'Контакти', 'url' => ['/site/contact']],
-//        ['label' => 'Факультети', 'url' => ['/faculty/index']],
-//        ['label' => 'Кафедри', 'url' => ['/department/index']],
-//        ['label' => 'Дисципліни', 'url' => ['/discipline/index']],
-//        ['label' => 'Курси', 'url' => ['/course/index']],
-//        ['label' => 'Групи', 'url' => ['/group/index']],
-//        ['label' => 'Теми', 'url' => ['/topic/index']],
-//        ['label' => 'Завдання', 'url' => ['/workshop/index']],
-//        ['label' => 'Користувачі', 'url' => ['/user/index']],
-//        ['label' => 'Профіль', 'url' => ['/user/view','id'=>Yii::$app->user->id]],
-//    ];
+    //    $menuItems = [
+    //       // ['label' => 'Головна', 'url' => ['/site/index']],
+    //       // ['label' => 'Про нас', 'url' => ['/site/about']],
+    //        //['label' => 'Контакти', 'url' => ['/site/contact']],
+    //        ['label' => 'Факультети', 'url' => ['/faculty/index']],
+    //        ['label' => 'Кафедри', 'url' => ['/department/index']],
+    //        ['label' => 'Дисципліни', 'url' => ['/discipline/index']],
+    //        ['label' => 'Курси', 'url' => ['/course/index']],
+    //        ['label' => 'Групи', 'url' => ['/group/index']],
+    //        ['label' => 'Теми', 'url' => ['/topic/index']],
+    //        ['label' => 'Завдання', 'url' => ['/workshop/index']],
+    //        ['label' => 'Користувачі', 'url' => ['/user/index']],
+    //        ['label' => 'Профіль', 'url' => ['/user/view','id'=>Yii::$app->user->id]],
+    //    ];
 
     if (Yii::$app->user->isGuest) {
-       // $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];
+        // $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+//        $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];
+        $menuItems = [
+            ['label' => 'Головна', 'url' => ['/site/index']],
+            ['label' => 'Про нас', 'url' => ['/site/about']],
+            ['label' => 'Контакти', 'url' => ['/site/contact']],
+            ['label' => 'Вхід', 'url' => ['/site/login']],
+        ];
     } else {
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
@@ -115,7 +131,7 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; Ладатко Дарія 601-ТШм <?= date('Y') ?></p>
 
-<!--      <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
+        <!--      <p class="pull-right">--><? //= Yii::powered() ?><!--</p>-->
     </div>
 </footer>
 

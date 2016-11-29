@@ -18,6 +18,7 @@ use common\models\Attachment;
  * @property integer $id
  * @property string $first_name
  * @property string $last_name
+ * * @property string $second_name
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
@@ -33,6 +34,9 @@ class User extends extUser
 {
     use attachmentSoft;
 
+    public $department_id;
+    public $group_id;
+
     const FIELD_ROLE = 'role';
 
     const ROLE_ADMIN = 0;
@@ -42,7 +46,7 @@ class User extends extUser
     public static $roles = [
         self::ROLE_ADMIN => 'Admin',
         self::ROLE_STAFF => 'Staff',
-        self::ROLE_ADMIN => 'Student',
+        self::ROLE_STUDENT => 'Student',
     ];
 
     public $password;
@@ -81,8 +85,13 @@ class User extends extUser
 
             ['password', 'string', 'min' => 6],
             [['auth_key'], 'string', 'max' => 32],
-            [['status', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['last_name', 'first_name','second_name', 'password_hash', 'password_reset_token', 'email', 'password'], 'string', 'max' => 255],
+            [['status', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by', 'department_id','group_id'], 'integer'],
+            [['last_name', 'first_name', 'second_name', 'password_hash', 'password_reset_token', 'email', 'password'], 'string', 'max' => 255],
+
+//            [['password', 'new_password', 'confirm_new_password'], 'required', 'on' => 'change_password'],
+//            [['password', 'new_password', 'confirm_password'], 'string', 'min'=>6, 'max'=>32],
+//            [['password', 'confirm_password', 'new_password', 'faculty','group'],'safe'],
+
         ];
     }
 
@@ -99,6 +108,8 @@ class User extends extUser
             'email' => 'Email',
             'status' => 'Статус',
             'role' => 'Роль',
+            'department_id' => 'Кафедра',
+            'group_id' => 'Група',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
@@ -111,6 +122,21 @@ class User extends extUser
     {
         if (Attachment::uploadBase64('imageFile', $this) && $model = $this->getAttachment()) {
             $model->delete();
+        }
+
+        if ($this->role == User::ROLE_STUDENT) {
+
+            if ($m = GroupUser::find()->where(['user_id' => $this->id])->one()) {
+                $m->delete();
+            }
+
+            (new GroupUser(['group_id' => (int) $this->group_id, 'user_id' => $this->id]))->save(false);
+        }
+
+        if ($this->isNewRecord) {
+            $this->generateAuthKey();
+            $this->generatePasswordResetToken();
+            $this->setPassword($this->password);
         }
 
         parent::afterSave($insert, $changedAttributes);
@@ -158,6 +184,7 @@ class User extends extUser
 
     public function getFullName()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->last_name . ' ' . $this->first_name . ' ' . $this->second_name;
     }
+
 }
