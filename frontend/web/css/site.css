@@ -145,3 +145,77 @@ a.desc:after {
 {margin-top:20px;
 }
 
+
+.message-box
+{
+    width: 80%;
+    margin: 0 10%;
+    display: inline-block;
+}
+.messInfo
+{
+    color: #6e6e6e;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 28%;
+    padding-top: 5px;
+}
+.bubble
+{
+    color: #6e6e6e;
+    position: relative;
+    width: 400px;
+    height: auto;
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #ededed;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.bubble:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 10px 22px 10px 0;
+    border-color: transparent #ededed;
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -12px;
+    top: 5px;
+}
+.bubble-another
+{
+    color: #6e6e6e;
+    position: relative;
+    width: 400px;
+    height: auto;
+    padding: 10px;
+    margin-bottom: 5px;
+    background: #d6e3ec;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.bubble-another:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 10px 22px 10px 0;
+    border-color: transparent #d6e3ec;
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -12px;
+    top: 5px;
+}
+

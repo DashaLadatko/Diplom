@@ -91,23 +91,16 @@ class UserSearch extends User
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+
             return $dataProvider;
         }
 
         // grid filtering conditions
 
-        $query->join('INNER JOIN', 'course',
-            'course.id_teacher = user.id');
-        $query->join('INNER JOIN', 'course_group_user',
-            'course_group_user.id_course = course.id_course');
-        $query->onCondition(
-            'course_group_user.id_group ='.$this->group_id);
+        $query->joinWith('receiverMessage');
+        $query->where(['message.to_user_id' => Yii::$app->user->id]);
 
-        $query->andFilterWhere([
-            'role'=> 1,
-        ])->distinct();
+        $query->distinct();
 
 
         return $dataProvider;

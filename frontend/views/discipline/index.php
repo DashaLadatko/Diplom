@@ -33,8 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     return $data->department->name;
                 },
-//                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
-                'filter' => Html::activeDropDownList($searchModel, 'name', ArrayHelper::map(Department::find()->where(['status' => Department::STATUS_ACTIVE])->all(), 'id', 'name'), ['prompt' => 'Виберіть кафедру...', 'class' => 'form-control']),
+             'filter' => \kartik\select2\Select2::widget([
+                'model' => $searchModel,
+                 'attribute' => 'department_id',
+                'data' => ArrayHelper::map(Department::find()->where(['status' => Department::STATUS_ACTIVE])->all(), 'id', 'name'),
+                'options' => ['placeholder' => 'Виберіть факультет...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]),
             ],
             'name',
            // 'status',

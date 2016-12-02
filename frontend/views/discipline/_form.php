@@ -15,7 +15,7 @@ use common\models\Department;
     <?php $form = ActiveForm::begin(); ?>
 
 <!--    --><?//= $form->field($model, 'department_id')->textInput() ?>
-    <?= $form->field($model, 'department_id')->dropDownList(ArrayHelper::map(Department::find()->all(), 'id', 'name')) ?>
+    <?= $form->field($model, 'department_id')->dropDownList(ArrayHelper::map(Department::find()->where(['status' => Department::STATUS_ACTIVE])->all(), 'id', 'name'),['prompt' => 'Виберіть кафедру...', 'class' => 'form-control']) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

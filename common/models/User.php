@@ -29,6 +29,9 @@ use common\models\Attachment;
  * @property string $password write-only password
  *
  * @property Attachment $image
+ * @property GroupUser $group
+ * @property Message $senderMessage
+ * @property Message $receiverMessage
  */
 class User extends extUser
 {
@@ -115,6 +118,20 @@ class User extends extUser
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
+    }
+    public function getGroup()
+    {
+        return $this->hasOne(GroupUser::className(), ['user_id' => 'id']);
+    }
+
+    public function getSenderMessage()
+    {
+        return $this->hasOne(Message::className(), ['to_user_id' => 'id']);
+    }
+
+    public function getReceiverMessage()
+    {
+        return $this->hasOne(Message::className(), ['from_user_id' => 'id']);
     }
 
 

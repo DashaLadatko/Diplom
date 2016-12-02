@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $searchModel,
                     'attribute' => 'faculty_id',
                     'data' => ArrayHelper::map(Faculty::find()->where(['status' => Faculty::STATUS_ACTIVE])->all(), 'id', 'name'),
-                    'options' => ['placeholder' => 'Выберите округ ...'],
+                    'options' => ['placeholder' => 'Виберіть факультет...'],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
