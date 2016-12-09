@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\GroupUser;
 use Yii;
 use common\models\User;
 use common\models\search\UserSearch;
@@ -91,6 +92,7 @@ class UserController extends Controller
         $model = new User();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

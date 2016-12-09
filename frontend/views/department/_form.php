@@ -15,7 +15,7 @@ use common\models\Faculty;
     <?php $form = ActiveForm::begin(); ?>
 
 <!--    --><?//= $form->field($model, 'faculty_id')->textInput() ?>
-<?= $form->field($model, 'faculty_id')->dropDownList(ArrayHelper::map(Faculty::find()->all(), 'id', 'name')) ?>
+<?= $form->field($model, 'faculty_id')->dropDownList(ArrayHelper::map(Faculty::find()->where(['status' => Faculty::STATUS_ACTIVE])->all(), 'id', 'name'),['prompt' => 'Виберіть факультет...', 'class' => 'form-control']) ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

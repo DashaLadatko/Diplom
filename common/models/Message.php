@@ -56,9 +56,10 @@ class Message extends extActiveRecord
     public function rules()
     {
         return [
-            [['to_user_id', 'from_user_id', 'text', 'read_or_not', 'status'], 'required'],
+            [['to_user_id', 'from_user_id', 'text', 'read_or_not'], 'required'],
             [['to_user_id', 'from_user_id', 'read_or_not', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['text'], 'string'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['from_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['from_user_id' => 'id']],
             [['to_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['to_user_id' => 'id']],
         ];
@@ -106,6 +107,16 @@ class Message extends extActiveRecord
             $value->read_or_not = 0;
             $value->save();
         }
+    }
+
+    public function MessageForChat(){
+        $query = self::find()
+            ->where(['status' => self::STATUS_ACTIVE])
+            ->andWhere(['or',
+                ['from_user_id' => Yii::$app->user->id],
+                ['to_user_id' => Yii::$app->user->id]
+            ]);
+          return $query->all();
     }
 }
 

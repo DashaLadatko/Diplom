@@ -23,6 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Додати завдання', Url::toRoute(['/workshop/create']), ['class' => 'btn btn-primary']); ?>
+        <?= Html::a('Перегляд та оцінювання відповідей', Url::toRoute(['/mark/index']), ['class' => 'btn btn-primary']); ?>
 
         <?php
 
@@ -44,8 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         ?>
     </p>
-    <?= Html::a('mark', Url::toRoute(['/mark/index']), ['class' => 'btn btn-primary']); ?>
-    <?= Html::a('Завдання', Url::toRoute(['/workshop/create']), ['class' => 'btn btn-primary']); ?>
+
 
     <?= DetailView::widget([
         'model' => $model,

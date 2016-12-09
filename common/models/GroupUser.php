@@ -17,7 +17,7 @@ use yii\behaviors\TimestampBehavior;
  * @property Group $group
  * @property User $user
  */
-class GroupUser extends extActiveRecord
+class GroupUser extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -26,23 +26,7 @@ class GroupUser extends extActiveRecord
     {
         return 'group_user';
     }
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => TimestampBehavior::className(),
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'
-                ],
-            ],
-            'blameable' => [
-                'class' => BlameableBehavior::className(),
-                'createdByAttribute' => 'created_by',
-                'updatedByAttribute' => 'updated_by'
-            ],
-        ];
-    }
+
     /**
      * @inheritdoc
      */

@@ -5,7 +5,7 @@ use yii\db\Migration;
 /**
  * Handles the creation for table `foreign`.
  */
-class m161115_225353_create_foreign_table extends Migration
+class m161202_210918_create_foreign_table extends Migration
 {
     public function up()
     {
@@ -26,6 +26,12 @@ class m161115_225353_create_foreign_table extends Migration
         $this->addForeignKey('fk_user_group', '{{%group_user}}', 'user_id', '{{%user}}', 'id');
         $this->createIndex('fk_group_user_idx', '{{%group_user}}', 'group_id');
         $this->addForeignKey('fk_group_user', '{{%group_user}}', 'group_id', '{{%group}}', 'id');
+
+        // course_user
+        $this->createIndex('fk_user_course_idx', '{{%course_user}}', 'user_id');
+        $this->addForeignKey('fk_user_course', '{{%course_user}}', 'user_id', '{{%user}}', 'id');
+        $this->createIndex('fk_course_user_idx', '{{%course_user}}', 'course_id');
+        $this->addForeignKey('fk_course_user', '{{%course_user}}', 'course_id', '{{%course}}', 'id');
 
         // discipline_course
         $this->createIndex('fk_discipline_course_idx', '{{%discipline_course}}', 'discipline_id');
@@ -105,6 +111,12 @@ class m161115_225353_create_foreign_table extends Migration
         $this->dropIndex('fk_user_group_idx', '{{%group_user}}');
         $this->dropForeignKey('fk_group_user', '{{%group_user}}');
         $this->dropIndex('fk_group_user_idx', '{{%group_user}}');
+
+        // course_user
+        $this->dropForeignKey('fk_user_course', '{{%course_user}}');
+        $this->dropIndex('fk_user_course_idx', '{{%course_user}}');
+        $this->dropForeignKey('fk_course_user', '{{%course_user}}');
+        $this->dropIndex('fk_course_user_idx', '{{%course_user}}');
 
         // discipline_course
         $this->dropForeignKey('fk_discipline_course', '{{%discipline_course}}');
