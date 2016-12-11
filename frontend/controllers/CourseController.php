@@ -8,6 +8,8 @@ use common\models\search\CourseSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\ForbiddenHttpException;
+use common\models\User;
 
 /**
  * CourseController implements the CRUD actions for Course model.
@@ -101,11 +103,26 @@ class CourseController extends Controller
      */
     public function actionDelete($id)
     {
+        if (in_array(Yii::$app->user->identity->role, array([User::ROLE_ADMIN, User::ROLE_STAFF]))) {
+            throw new ForbiddenHttpException('Access denied');
+        }
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
+    public function actionRestore($id)
+    {
+
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
+            throw new ForbiddenHttpException('Access denied');
+        }
+
+        $this->findModel($id)->restore();
+
+        return $this->redirect(['index']);
+    }
     /**
      * Finds the Course model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

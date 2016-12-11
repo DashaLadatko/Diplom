@@ -78,4 +78,31 @@ class UserSearch extends User
 
         return $dataProvider;
     }
+    public function searchTeacherForMessage($params)
+    {
+        $query = User::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+
+        $query->joinWith('receiverMessage');
+        $query->where(['message.to_user_id' => Yii::$app->user->id]);
+
+        $query->distinct();
+
+
+        return $dataProvider;
+    }
 }

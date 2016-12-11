@@ -7,9 +7,10 @@ use common\models\Department;
 use common\models\search\DepartmentSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use common\models\User;
 
 /**
  * DepartmentController implements the CRUD actions for Department model.
@@ -127,7 +128,7 @@ class DepartmentController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 
@@ -145,7 +146,7 @@ class DepartmentController extends Controller
     public function actionRestore($id)
     {
 
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 

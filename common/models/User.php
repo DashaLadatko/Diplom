@@ -18,6 +18,7 @@ use common\models\Attachment;
  * @property integer $id
  * @property string $first_name
  * @property string $last_name
+ * * @property string $second_name
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
@@ -28,16 +29,27 @@ use common\models\Attachment;
  * @property string $password write-only password
  *
  * @property Attachment $image
+ * @property GroupUser $group
+ * @property Message $senderMessage
+ * @property Message $receiverMessage
  */
 class User extends extUser
 {
     use attachmentSoft;
 
+    public $department_id;
+    public $group_id;
+
     const FIELD_ROLE = 'role';
 
-    public static $roles = [
-        0 => 'ADMIN'
+    const ROLE_ADMIN = 0;
+    const ROLE_STAFF = 1;
+    const ROLE_STUDENT = 2;
 
+    public static $roles = [
+        self::ROLE_ADMIN => 'Admin',
+        self::ROLE_STAFF => 'Staff',
+        self::ROLE_STUDENT => 'Student',
     ];
 
     public $password;
@@ -76,8 +88,13 @@ class User extends extUser
 
             ['password', 'string', 'min' => 6],
             [['auth_key'], 'string', 'max' => 32],
-            [['status', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['last_name', 'first_name', 'password_hash', 'password_reset_token', 'email', 'password'], 'string', 'max' => 255],
+            [['status', 'role', 'created_at', 'created_by', 'updated_at', 'updated_by', 'department_id','group_id'], 'integer'],
+            [['last_name', 'first_name', 'second_name', 'password_hash', 'password_reset_token', 'email', 'password'], 'string', 'max' => 255],
+
+//            [['password', 'new_password', 'confirm_new_password'], 'required', 'on' => 'change_password'],
+//            [['password', 'new_password', 'confirm_password'], 'string', 'min'=>6, 'max'=>32],
+//            [['password', 'confirm_password', 'new_password', 'faculty','group'],'safe'],
+
         ];
     }
 
@@ -87,17 +104,34 @@ class User extends extUser
             'id' => 'ID',
             'first_name' => 'Ім\'я',
             'last_name' => 'Прізвище',
-            'auth_key' => 'Auth Key',
-            'password_hash' => 'Password Hash',
+            'second_name' => 'По-батькові',
+            'auth_key' => 'Пароль',
+            'password_hash' => 'Пароль',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
             'status' => 'Статус',
             'role' => 'Роль',
+            'department_id' => 'Кафедра',
+            'group_id' => 'Група',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
+    }
+    public function getGroup()
+    {
+        return $this->hasOne(GroupUser::className(), ['user_id' => 'id']);
+    }
+
+    public function getSenderMessage()
+    {
+        return $this->hasOne(Message::className(), ['to_user_id' => 'id']);
+    }
+
+    public function getReceiverMessage()
+    {
+        return $this->hasOne(Message::className(), ['from_user_id' => 'id']);
     }
 
 
@@ -105,6 +139,21 @@ class User extends extUser
     {
         if (Attachment::uploadBase64('imageFile', $this) && $model = $this->getAttachment()) {
             $model->delete();
+        }
+
+        if ($this->role == User::ROLE_STUDENT) {
+
+            if ($m = GroupUser::find()->where(['user_id' => $this->id])->one()) {
+                $m->delete();
+            }
+
+            (new GroupUser(['group_id' => (int) $this->group_id, 'user_id' => $this->id]))->save(false);
+        }
+
+        if ($this->isNewRecord) {
+            $this->generateAuthKey();
+            $this->generatePasswordResetToken();
+            $this->setPassword($this->password);
         }
 
         parent::afterSave($insert, $changedAttributes);
@@ -128,7 +177,7 @@ class User extends extUser
      */
     public static function isRole(array $arrayRoles)
     {
-        return in_array(Yii::$app->user->identity->role, $arrayRoles, false);
+        return in_array(self::$roles[Yii::$app->user->identity->role], $arrayRoles, false);
     }
 
     /**
@@ -152,6 +201,7 @@ class User extends extUser
 
     public function getFullName()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->last_name . ' ' . $this->first_name . ' ' . $this->second_name;
     }
+
 }

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\traits\attachmentSoft;
 use Yii;
 use yii\db\ActiveRecord;
 use common\components\extended\extActiveRecord;
@@ -27,6 +28,13 @@ use yii\behaviors\TimestampBehavior;
  */
 class Workshop extends extActiveRecord
 {
+    use attachmentSoft;
+
+    const type_practical = 'practical';
+    const type_seminar = 'seminar';
+    const type_laboratory = 'laboratory';
+    const type_lecture = 'lecture';
+
     public $files;
 
     /**
@@ -72,7 +80,7 @@ class Workshop extends extActiveRecord
         ];
     }
 
-    public function afterSave($insert)
+    public function afterSave($insert, $changedAttributes)
     {
         Attachment::upload($this);
     }
@@ -95,8 +103,6 @@ class Workshop extends extActiveRecord
             'updated_by' => 'Updated By',
         ];
     }
-
-
 
     /**
      * @return \yii\db\ActiveQuery

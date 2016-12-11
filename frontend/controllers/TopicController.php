@@ -6,8 +6,10 @@ use Yii;
 use common\models\Topic;
 use common\models\search\TopicSearch;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\User;
 
 /**
  * TopicController implements the CRUD actions for Topic model.
@@ -117,7 +119,7 @@ class TopicController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (in_array(Yii::$app->user->identity->role, array([User::ROLE_ADMIN, User::ROLE_STAFF]))) {
             throw new ForbiddenHttpException('Access denied');
         }
 
@@ -135,7 +137,7 @@ class TopicController extends Controller
     public function actionRestore($id)
     {
 
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 

@@ -56,9 +56,10 @@ class Message extends extActiveRecord
     public function rules()
     {
         return [
-            [['to_user_id', 'from_user_id', 'text', 'read_or_not', 'status'], 'required'],
+            [['to_user_id', 'from_user_id', 'text', 'read_or_not'], 'required'],
             [['to_user_id', 'from_user_id', 'read_or_not', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['text'], 'string'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             [['from_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['from_user_id' => 'id']],
             [['to_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['to_user_id' => 'id']],
         ];
@@ -71,10 +72,10 @@ class Message extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'to_user_id' => 'To User ID',
-            'from_user_id' => 'From User ID',
-            'text' => 'Text',
-            'read_or_not' => 'Read Or Not',
+            'to_user_id' => 'Кому',
+            'from_user_id' => 'Від кого',
+            'text' => 'Повідомлення',
+            'read_or_not' => 'Прочитано',
             'status' => 'Status',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
@@ -98,4 +99,24 @@ class Message extends extActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'to_user_id']);
     }
+
+    public static function dialogButton($model)
+    {
+        $modelM = self::find()->where(['from_user_id' => $model->id, 'read_or_not' => 1])->all();
+        foreach($modelM as $value){
+            $value->read_or_not = 0;
+            $value->save();
+        }
+    }
+
+    public function MessageForChat(){
+        $query = self::find()
+            ->where(['status' => self::STATUS_ACTIVE])
+            ->andWhere(['or',
+                ['from_user_id' => Yii::$app->user->id],
+                ['to_user_id' => Yii::$app->user->id]
+            ]);
+          return $query->all();
+    }
 }
+

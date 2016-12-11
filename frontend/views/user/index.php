@@ -25,20 +25,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+//            'id',
+            'last_name',
             'first_name',
             'second_name',
-            'last_name',
-            'auth_key',
+
+//            'auth_key',
             // 'password_hash',
             // 'password_reset_token',
             'email:email',
-             'status',
-             'role',
+//             'status',
+
             // 'created_at',
             // 'created_by',
             // 'updated_at',
             // 'updated_by',
+            [
+                'attribute' =>  'role',
+                'value' => function ($data) {
+                    return $data-> role;
+                },
+//                'visible' => (Yii::$app->user->identity->role === User::$roles[0]),
+                'filter' => Html::activeDropDownList($searchModel, 'role', User::$roles, ['prompt' => '', 'class' => 'form-control']),
+            ],
             [
                 'attribute' => 'status',
                 'value' => function ($data) {

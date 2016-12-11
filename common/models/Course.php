@@ -59,10 +59,10 @@ class Course extends extActiveRecord
             'description' => 'Опис',
             'discipline_id' => 'Дисципліна',
             'status' => 'Статус',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'created_at' => 'Дата створення',
+            'updated_at' => 'Дата редагування',
+            'created_by' => 'Створено',
+            'updated_by' => 'Відредаговано',
         ];
     }
 

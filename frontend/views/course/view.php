@@ -5,6 +5,8 @@ use yii\bootstrap\Tabs;
 use yii\widgets\DetailView;
 use yii\bootstrap\Alert;
 use common\models\User;
+use yii\helpers\Url;
+
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Course */
@@ -18,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?= Html::a('Преглянути теми курсу', Url::toRoute(['/topic/index']), ['class' => 'btn btn-primary']); ?>
         <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
         <?php
@@ -40,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         ?>
     </p>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -59,35 +63,23 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'created_at',
                 'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
-            ],
-            [
-                'attribute' => 'created_by',
-                'value' => $model->created_by ? User::getById($model->created_by)->username : '',
-            ], [
+            ],[
                 'attribute' => 'updated_at',
                 'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
             ],
             [
+                'attribute' => 'created_by',
+                'value' => $model->created_by ? User::getById($model->created_by)->email : '',
+            ],
+            [
                 'attribute' => 'updated_by',
-                'value' => $model->updated_by ? User::getById($model->updated_by)->username : '',
+                'value' => $model->updated_by ? User::getById($model->updated_by)->email : '',
             ],
         ],
     ]) ?>
 
     <?php $active = Yii::$app->getRequest()->get('active');?>
-    <?php
-    $tabs[0] = [
-        'label' => 'Групи',
-        'content' => 'text',
-            'active' => true
-    ];
-    $tabs[1] = [
-        'label' => 'Групи',
-        'content' => 'text',
-        'active' => true
-    ];
 
-    ?>
 
 
 

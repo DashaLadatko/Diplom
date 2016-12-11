@@ -6,8 +6,10 @@ use Yii;
 use common\models\Group;
 use common\models\search\GroupSearch;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\User;
 
 /**
  * GroupController implements the CRUD actions for Group model.
@@ -112,7 +114,7 @@ class GroupController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 
@@ -130,7 +132,7 @@ class GroupController extends Controller
     public function actionRestore($id)
     {
 
-        if (Yii::$app->user->identity->role !== User::$roles[0]) {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
 
