@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $searchModel,
                  'attribute' => 'department_id',
                 'data' => ArrayHelper::map(Department::find()->where(['status' => Department::STATUS_ACTIVE])->all(), 'id', 'name'),
-                'options' => ['placeholder' => 'Виберіть факультет...'],
+                'options' => ['placeholder' => 'Виберіть кафедру...'],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],

@@ -92,7 +92,7 @@ class Workshop extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'topic_id' => 'Topic ID',
+            'topic_id' => 'Тема',
             'name' => 'Назва',
             'description' => 'Опис',
             'type' => 'Тип',

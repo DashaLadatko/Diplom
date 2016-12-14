@@ -53,7 +53,7 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Факультети', 'url' => ['/faculty/index']];
             $menuItems[] = ['label' => 'Кафедри', 'url' => ['/department/index']];
             $menuItems[] = ['label' => 'Дисципліни', 'url' => ['/discipline/index']];
-            $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
+//            $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
             $menuItems[] = ['label' => 'Групи', 'url' => ['/group/index']];
             $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
             $menuItems[] = ['label' => 'Користувачі', 'url' => ['/user/index']];

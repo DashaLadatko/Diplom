@@ -28,7 +28,6 @@ class LoginForm extends Model
             ['password', 'validatePassword'],
         ];
     }
-
     public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
