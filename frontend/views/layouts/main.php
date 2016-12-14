@@ -67,11 +67,12 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
         }
         if (\common\models\User::isRole(['Staff'])) {
+            $menuItems[] = ['label' => 'Головна', 'url' => ['/site/index']];
+            $menuItems[] =  ['label' => 'Про нас', 'url' => ['/site/about']];
+            $menuItems[] = ['label' => 'Мої дисципліни', 'url' => ['/discipline/index']];
             $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
             $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
-            $menuItems[] = ['label' => 'Теми', 'url' => ['/topic/index']];
-            $menuItems[] = ['label' => 'Завдання', 'url' => ['/workshop/index']];
-            $menuItems[] = ['label' => 'Відповіді', 'url' => ['/mark/index']];
+            $menuItems[] = ['label' => 'Контакти', 'url' => ['/site/contact']];
             $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
         }
 
