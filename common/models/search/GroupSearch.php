@@ -92,12 +92,12 @@ class GroupSearch extends Group
         }
         $query->joinWith('groupUsers');
 
-        $query->join('LEFT OUTER JOIN', 'course',
-            'course.id = course_group_user.course_id');
+        $query->join('LEFT OUTER JOIN', 'course_group_user',
+            'group_user.group_id = course_group_user.group_id');
+        $query->join('LEFT OUTER JOIN', 'course_user',
+            'course_group_user.course_id = course_user.course_id');
         $query->onCondition(
-            'course.user_id ='.Yii::$app->user->id);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
+            'course_user.user_id ='.Yii::$app->user->id);
 
         return $dataProvider;
     }

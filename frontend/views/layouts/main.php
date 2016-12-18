@@ -19,7 +19,7 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--    <script src="http://diplom/frontend/web/js/jquery-3.1.1.min.js"></script>-->
+    <!--    <script src="http://diplom/frontend/web/js/jquery-3.1.1.min.js"></script>-->
 
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
@@ -35,7 +35,7 @@ AppAsset::register($this);
 //        'brandLabel' => 'Система дистанційного навчання',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse',
         ],
     ]);
 
@@ -68,7 +68,7 @@ AppAsset::register($this);
         }
         if (\common\models\User::isRole(['Staff'])) {
             $menuItems[] = ['label' => 'Головна', 'url' => ['/site/index']];
-            $menuItems[] =  ['label' => 'Про нас', 'url' => ['/site/about']];
+            $menuItems[] = ['label' => 'Про нас', 'url' => ['/site/about']];
             $menuItems[] = ['label' => 'Мої дисципліни', 'url' => ['/discipline/index']];
             $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
             $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
@@ -120,11 +120,15 @@ AppAsset::register($this);
     ?>
 
     <div class="container-fluid">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+        <div class="container">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+        </div>
+        <div class="<?= Yii::$app->controller->id == 'site' ? '' : 'container' ?>">
+            <?= $content ?>
+        </div>
     </div>
 </div>
 
