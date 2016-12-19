@@ -55,11 +55,13 @@ class FilenmkdController extends Controller
             );
         }
 
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+
         ]);
+
+
     }
 
     /**
@@ -167,7 +169,7 @@ class FilenmkdController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             //$model->updated_at = time();
-            if($model->name === ''){
+            if($model->name === '' || is_null($model->name)){
                 $model->signature = 'не завантажено';
                 $model->total = 0;
                 $model->protocol_fuculty = 0;
@@ -230,7 +232,9 @@ class FilenmkdController extends Controller
             && Yii::$app->user->identity->role !== User::ROLE_STAFF) {
             throw new ForbiddenHttpException('Access denied');
         }
+
         $this->findModel($id)->delete();
+
 
         return $this->redirect(['index']);
     }
@@ -244,6 +248,10 @@ class FilenmkdController extends Controller
         }
         $model =  $this->findModel($id);
         $model ->name = '';
+        $model->total = 0;
+        $model->protocol_fuculty = 0;
+        $model->protocol_chair = 0;
+        $model->protocol_university = 0;
         $model->signature ='не завантажено';
         $model->save(false);
         //удалить файл из папки

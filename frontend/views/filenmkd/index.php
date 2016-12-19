@@ -1,5 +1,7 @@
 <?php
 
+
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -22,35 +24,39 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Додати НМКД', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php Pjax::begin(); ?>    <?= GridView::widget([
-
+    <?php Pjax::begin(); ?>    <div style="overflow: scroll;"><?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions' => [
+            'class' => 'table table-striped table-bordered'
+        ],
 
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn',],
+            ['class' => 'yii\grid\SerialColumn'],
             'name',
 
             ['label'=>'Дисципліна',
-                'attribute'=>'disciplineName',
-
-               ],
+                'attribute'=>'disciplineName',],
             ['label'=>'Викладач',
                 'attribute'=>'fullName',
-                ],
+                'contentOptions'=>['style'=>'white-space: normal;']],
             ['label'=>'Компонент НМКД',
                 'attribute'=>'componentnmkdName',
                 'contentOptions'=>['style'=>'white-space: normal;'] ,],
             ['label'=>'Статус',
                 'attribute'=>'signature',
-                'filter'=>array('не завантажено', 'на розгляді',  'затверджено')],
+                'filter'=>array('не завантажено'=>'не завантажено', 'на розгляді'=> 'на розгляді',  'затверджено'=>'затверджено')],
             //'protocol_chair',
+
             ['label'=>'Протокол кафедри',
                 'attribute'=>'protocol_chair',
-                'filter'=>array('0'=>'Ні', '1'=> 'Так',)],
+                'filter'=>array('0'=>'Ні', '1'=> 'Так',),
+
+                'headerOptions' => ['width' => '100']],
             //'protocol_fuculty',
             ['label'=>'Протокол факультету',
                 'attribute'=>'protocol_fuculty',
+
                 'filter'=>array('0'=>'Ні', '1'=> 'Так',)],
             // 'protocol_university',
             ['label'=>'Протокол університету',
@@ -62,15 +68,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter'=>array('0'=>'Ні', '1'=> 'Так',)],
             //'total',
 
-             'created_at',
-             'created_by',
-             'updated_at',
-             'updated_by',
+            //'created_at',
+            ['format'=>'datetime','attribute'=>'created_at'],
+            // 'created_by',
+            //'updated_at',
+            ['format'=>'datetime','attribute'=>'updated_at'],
+            //'updated_by',
 
+            ['class' => 'yii\grid\ActionColumn',
 
-            ['class' => 'yii\grid\ActionColumn'],
+                'template' => '{view} {update}  {link}',],
         ],
 
 
-    ]); ?>
-    <?php Pjax::end(); ?></div>
+    ]); ?></div>
+    <?php Pjax::end();  ?>

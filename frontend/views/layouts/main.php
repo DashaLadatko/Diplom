@@ -59,7 +59,9 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Завдання', 'url' => ['/workshop/index']];
             $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
         }
-        if (\common\models\User::isRole(['Staff'])) {
+        if (\common\models\User::isRole(['Staff'])
+            || \common\models\User::isRole(['Adminnmkd'])
+            || \common\models\User::isRole(['Chief'])) {
             $menuItems[] = ['label' => 'Головна', 'url' => ['/site/index']];
             $menuItems[] = ['label' => 'Про нас', 'url' => ['/site/about']];
             $menuItems[] = ['label' => 'Мої дисципліни', 'url' => ['/discipline/index']];
@@ -67,6 +69,12 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
             $menuItems[] = ['label' => 'Контакти', 'url' => ['/site/contact']];
             $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
+            $menuItems[] = ['label' => 'Файли НМКД', 'url' => ['/filenmkd/index']];
+        }
+
+        if ( \common\models\User::isRole(['Adminnmkd'])) {
+
+            $menuItems[] = ['label' => 'Компоненти НМКД', 'url' => ['/componentnmkd/index']];
         }
     }
     //    $menuItems = [

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Filenmkd */
@@ -16,13 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Оновити', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Видалити', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Ви впевнені, що хочете видалити файл?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if($model->user_id === Yii::$app->user->identity->getId()){
+            echo Html::a('Видалити', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Ви впевнені, що хочете видалити файл?',
+                    'method' => 'post',
+                ],
+            ]);
+
+        }?>
     </p>
 
     <?= DetailView::widget([
@@ -38,16 +42,46 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
 
             'signature',
-            'protocol_chair',
-            'protocol_fuculty',
-            'protocol_university',
-            'comment',
-            'total',
-            'created_at',
-            'created_by',
-            'updated_at',
-            'updated_by',
+            [
+                'attribute' => 'protocol_chair',
+                'value' => $model->protocol_chair? 'Так' : 'Ні'
 
+            ],
+            [
+                'attribute' => 'protocol_fuculty',
+                'value' => $model->protocol_fuculty? 'Так' : 'Ні'
+
+            ],
+            [
+                'attribute' => 'protocol_university',
+                'value' => $model->protocol_university? 'Так' : 'Ні'
+
+            ],
+            [
+                'attribute' => 'total',
+                'value' => $model->total? 'Так' : 'Ні'
+
+            ],
+            //'protocol_chair',
+            //'protocol_fuculty',
+            //'protocol_university',
+            'comment',
+            //'total',
+            [
+                'attribute' => 'created_at',
+                'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
+            ],[
+                'attribute' => 'updated_at',
+                'value' => $model->updated_at ? date('Y-m-d H:i:s', $model->updated_at) : '',
+            ],
+            [
+                'attribute' => 'created_by',
+                'value' => $model->created_by ? User::getById($model->created_by)->email : '',
+            ],
+            [
+                'attribute' => 'updated_by',
+                'value' => $model->updated_by ? User::getById($model->updated_by)->email : '',
+            ],
         ],
     ]) ?>
 

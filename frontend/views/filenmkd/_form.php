@@ -18,7 +18,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'componentnmkdName')->textInput(['readonly'=>'readonly'])->label('Компонент НМКД') ?>
 
-    <?= $form->field($model, 'total')->checkbox() ?>
 
     <?php if($model->name === '' || $model->name === NULL ){ if(  $model->user_id === Yii::$app->user->identity->getId()){?>
         <?=  Html::a('Завантажити файл на сервер', ['file', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
@@ -35,13 +34,15 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'fullName')->textInput(['readonly'=>'readonly'])->label('Викладач') ?>
 
 
-    <?= $form->field($model, 'signature')->dropDownList([ 'не завантажено', 'на розгляді',  'затверджено' ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'signature')->dropDownList([ 'не завантажено' => 'не завантажено', 'на розгляді' => 'на розгляді',  'затверджено' => 'затверджено' ] ) ?>
 
     <?= $form->field($model, 'protocol_chair')->checkbox(['label' => 'Протокол кафедри' ]) ?>
 
     <?= $form->field($model, 'protocol_fuculty')->checkbox(['label' => 'Протокол факультету' ]) ?>
 
     <?= $form->field($model, 'protocol_university')->checkbox(['label' => 'Протокол університету' ]) ?>
+
+    <?= $form->field($model, 'total')->checkbox() ?>
 
     <?= $form->field($model, 'comment')->textInput(['maxlength' => true, 'readonly' => (Yii::$app->user->identity->role !==  common\models\User::ROLE_CHIEF) ? true : false]) ?>
 
