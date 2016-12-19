@@ -109,13 +109,18 @@ class Message extends extActiveRecord
         }
     }
 
-    public function MessageForChat(){
+    public function MessageForChat($id = null){
         $query = self::find()
-            ->where(['status' => self::STATUS_ACTIVE])
-            ->andWhere(['or',
+            ->where(['status' => self::STATUS_ACTIVE]);
+        if($id){
+            $query->andOnCondition('(from_user_id ='. $id.' AND to_user_id ='. Yii::$app->user->id.
+                ') OR (from_user_id = ' . Yii::$app->user->id.' AND to_user_id = ' . $id .")");
+        }else {
+            $query->andWhere(['or',
                 ['from_user_id' => Yii::$app->user->id],
                 ['to_user_id' => Yii::$app->user->id]
             ]);
+        }
           return $query->all();
     }
 }

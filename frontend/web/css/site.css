@@ -100,15 +100,16 @@ a.desc:after {
     padding: 8px;
 }
 
-@media(max-width:768px) {
-	.nav li > form {
-	    padding: 3px;
-	}
+@media (max-width: 768px) {
+    .nav li > form {
+        padding: 3px;
+    }
 }
 
 .nav > li > form > button:hover {
     text-decoration: none;
 }
+
 /*# profile */
 
 .user-row {
@@ -137,31 +138,29 @@ a.desc:after {
     border-top: 0;
 }
 
-
 .table-user-information > tbody > tr > td {
     border-top: 0;
 }
-.toppad
-{margin-top:20px;
+
+.toppad {
+    margin-top: 20px;
 }
 
-
-.message-box
-{
+.message-box {
     width: 80%;
     margin: 0 10%;
     display: inline-block;
 }
-.messInfo
-{
+
+.messInfo {
     color: #6e6e6e;
     box-sizing: border-box;
     display: inline-block;
     width: 28%;
     padding-top: 5px;
 }
-.bubble
-{
+
+.bubble {
     color: #6e6e6e;
     position: relative;
     width: 400px;
@@ -176,8 +175,7 @@ a.desc:after {
     box-sizing: border-box;
 }
 
-.bubble:after
-{
+.bubble:after {
     content: '';
     position: absolute;
     border-style: solid;
@@ -189,8 +187,8 @@ a.desc:after {
     left: -12px;
     top: 5px;
 }
-.bubble-another
-{
+
+.bubble-another {
     color: #6e6e6e;
     position: relative;
     width: 400px;
@@ -205,8 +203,7 @@ a.desc:after {
     box-sizing: border-box;
 }
 
-.bubble-another:after
-{
+.bubble-another:after {
     content: '';
     position: absolute;
     border-style: solid;
@@ -219,3 +216,61 @@ a.desc:after {
     top: 5px;
 }
 
+.navbar-inverse {
+    margin-bottom: 0!important;
+    border: 0;
+    border-radius: 0;
+}
+
+.image-block {
+    position: relative;
+    height: calc(100vh - 51px);
+    margin: 0 -15px 0;
+    background: url('../img/work-watermark-1920x1080-09.jpg');
+}
+
+.slider {
+    position: absolute;
+    top: calc(50% - 50px);
+}
+
+.slick-slide {
+    outline: none;
+    text-align: center;
+    color: #fff;
+}
+
+.slick-next {
+    right: 25px!important;
+    z-index: 10;
+}
+
+.slick-prev {
+    left: 25px!important;
+    z-index: 10;
+}
+
+.slick-next:before {
+    font-size: 30px!important;
+}
+
+.slick-prev:before {
+    font-size: 30px!important;
+}
+
+.info-block {
+    margin: 50px 0;
+}
+
+.info-block img {
+    height: 250px;
+}
+
+.info-block .col-sm-4 {
+    text-align: center;
+}
+
+.breadcrumb {
+    margin-top: 20px;
+    margin-bottom: 0;
+}

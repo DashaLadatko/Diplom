@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Workshop */
 
-$this->title = 'Додати Workshop';
+$this->title = 'Додати завдання';
 $this->params['breadcrumbs'][] = ['label' => 'Workshops', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

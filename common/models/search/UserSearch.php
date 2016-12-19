@@ -44,6 +44,8 @@ class UserSearch extends User
     {
         $query = User::find();
 
+        $query->joinWith('group');
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -60,22 +62,23 @@ class UserSearch extends User
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'status' => $this->status,
-            'role' => $this->role,
-            'created_at' => $this->created_at,
-            'created_by' => $this->created_by,
-            'updated_at' => $this->updated_at,
-            'updated_by' => $this->updated_by,
+            'user.status' => $this->status,
+            'user.role' => $this->role,
+            'user.created_at' => $this->created_at,
+            'user.created_by' => $this->created_by,
+            'user.updated_at' => $this->updated_at,
+            'user.updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'second_name', $this->second_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['like', 'email', $this->email]);
+        $query->andFilterWhere([
+            'group_user.group_id' => $this->group_id
+        ]);
+
+        $query->andFilterWhere(['like', 'user.first_name', $this->first_name])
+            ->andFilterWhere(['like', 'user.second_name', $this->second_name])
+            ->andFilterWhere(['like', 'user.last_name', $this->last_name])
+            ->andFilterWhere(['like', 'user.auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'user.email', $this->email]);
 
         return $dataProvider;
     }

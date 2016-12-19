@@ -101,41 +101,42 @@ class MessageController extends Controller
      */
     public function actionView($id)
     {
-//        $group = Group::findOne($id);
-//        $userSearch = new UserSearch();
-//        return $this->render('group_view', [
-//            'group' => $group,
-//            'userSearch' => $userSearch,
-//        ]);
-        {
-            $user = User::findOne($id);
-            $group = Group::findOne($user->group_id);
-            $model = new Message();
-            $modelMessage = $user->senderMessage;
-//            Messages::dialogButton($user);
-            if ($model->load(Yii::$app->request->post())) {
-                $model->id_from = Yii::$app->user->id;
-                $model->id_to = $id;
-                $model->date = time();
-                $model->read_or_not = 1;
-                if ($model->save()) {
-                    Yii::$app->getSession()->setFlash('success', "Повідомлення надіслано :)");
-                    $model->message = "";
-                    return $this->render('message',
-                        ['user' => $user,
-                            'group' => $group,
-                            'model' => $model]);
-                }else{
-                    Yii::$app->getSession()->setFlash('error', "Щось зламалось. Повідомлення не надіслано :(");
-                }
-            }
-            return $this->render('message',
-                [
-                    'user' => $user,
-                    'modelMessage' => $modelMessage,
-                    'group' => $group,
-                    'model' => $model]);
-        }
+        $userSearch = new UserSearch();
+        $userSearch->group_id = $id;
+        $dataProvider = $userSearch->search(Yii::$app->request->queryParams);
+        return $this->render('index', [
+            'searchModel' => $userSearch,
+            'dataProvider' => $dataProvider,
+        ]);
+//        {
+//            $user = User::findOne($id);
+//            $group = Group::findOne($user->group_id);
+//            $model = new Message();
+//            $modelMessage = $user->senderMessage;
+////            Messages::dialogButton($user);
+//            if ($model->load(Yii::$app->request->post())) {
+//                $model->id_from = Yii::$app->user->id;
+//                $model->id_to = $id;
+//                $model->date = time();
+//                $model->read_or_not = 1;
+//                if ($model->save()) {
+//                    Yii::$app->getSession()->setFlash('success', "Повідомлення надіслано :)");
+//                    $model->message = "";
+//                    return $this->render('message',
+//                        ['user' => $user,
+//                            'group' => $group,
+//                            'model' => $model]);
+//                }else{
+//                    Yii::$app->getSession()->setFlash('error', "Щось зламалось. Повідомлення не надіслано :(");
+//                }
+//            }
+//            return $this->render('message',
+//                [
+//                    'user' => $user,
+//                    'modelMessage' => $modelMessage,
+//                    'group' => $group,
+//                    'model' => $model]);
+//        }
     }
 
     /**
@@ -228,7 +229,7 @@ class MessageController extends Controller
         $group = Group::findOne($user->group_id);
 
         $model = new Message();
-        $modelMessage = $model->MessageForChat();
+        $modelMessage = $model->MessageForChat($id);
         Message::dialogButton($user);
         if ($model->load(Yii::$app->request->post())) {
             $model->from_user_id = Yii::$app->user->id;
