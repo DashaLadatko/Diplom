@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Componentnmkd */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Componentnmkds', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Компоненти НМКД', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="componentnmkd-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Оновити', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Видалити', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -30,10 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'created_at',
-            'created_by',
-            'updated_at',
-            'updated_by',
+            //'created_at',
+            //'created_by',
+            //'updated_at',
+            //'updated_by',
         ],
     ]) ?>
 

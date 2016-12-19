@@ -19,52 +19,58 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Файли НМКД', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Додати НМКД', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>    <?= GridView::widget([
+
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            //'id',
-            // 'discipline_id',
-            //'component_nmkd_id',
+            ['class' => 'yii\grid\SerialColumn',],
             'name',
-            //'user_id',
-            'disciplineName',
-            'fullName',
-            'componentnmkdName',
-            ['label'=>'signature',
-                'attribute'=>'signature',
-                'filter'=>array('not loaded'=>'not loaded', 'out for approval'=> 'out for approval', 'rejected'=> 'rejected',)],
 
+            ['label'=>'Дисципліна',
+                'attribute'=>'disciplineName',
+
+               ],
+            ['label'=>'Викладач',
+                'attribute'=>'fullName',
+                ],
+            ['label'=>'Компонент НМКД',
+                'attribute'=>'componentnmkdName',
+                'contentOptions'=>['style'=>'white-space: normal;'] ,],
+            ['label'=>'Статус',
+                'attribute'=>'signature',
+                'filter'=>array('не завантажено', 'на розгляді',  'затверджено')],
             //'protocol_chair',
-            ['label'=>'protocol_chair',
+            ['label'=>'Протокол кафедри',
                 'attribute'=>'protocol_chair',
-                'filter'=>array('0'=>'NO', '1'=> 'YES',)],
+                'filter'=>array('0'=>'Ні', '1'=> 'Так',)],
             //'protocol_fuculty',
-            ['label'=>'protocol_fuculty',
+            ['label'=>'Протокол факультету',
                 'attribute'=>'protocol_fuculty',
-                'filter'=>array('0'=>'NO', '1'=> 'YES',)],
+                'filter'=>array('0'=>'Ні', '1'=> 'Так',)],
             // 'protocol_university',
-            ['label'=>'protocol_university',
+            ['label'=>'Протокол університету',
                 'attribute'=>'protocol_university',
-                'filter'=>array('0'=>'NO', '1'=> 'YES',)],
+                'filter'=>array('0'=>'Ні', '1'=> 'Так',)],
             'comment',
-            ['label'=>'total',
+            ['label'=>'Остаточно затверджено',
                 'attribute'=>'total',
-                'filter'=>array('0'=>'NO', '1'=> 'YES',)],
+                'filter'=>array('0'=>'Ні', '1'=> 'Так',)],
             //'total',
 
-            // 'created_at',
-            // 'created_by',
-            // 'updated_at',
-            // 'updated_by',
+             'created_at',
+             'created_by',
+             'updated_at',
+             'updated_by',
+
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
+
 
     ]); ?>
     <?php Pjax::end(); ?></div>

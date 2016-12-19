@@ -1,4 +1,6 @@
+
 <?php
+
 
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -7,7 +9,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel common\models\search\ComponentnmkdSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Componentnmkds';
+$this->title = 'Компоненти НМКД';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="componentnmkd-index">
@@ -16,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Componentnmkd', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Додати компонент НМКД', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,11 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'name',
-            'created_at',
-            'created_by',
-            'updated_at',
+            // 'created_at',
+            // 'created_by',
+            // 'updated_at',
             // 'updated_by',
 
             ['class' => 'yii\grid\ActionColumn'],

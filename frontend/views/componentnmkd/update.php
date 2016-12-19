@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Componentnmkd */
 
-$this->title = 'Update Componentnmkd: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Componentnmkds', 'url' => ['index']];
+$this->title = '' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Компоненти НМКД', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

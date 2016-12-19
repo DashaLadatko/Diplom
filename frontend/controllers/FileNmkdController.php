@@ -8,9 +8,11 @@ use yii\helpers\ArrayHelper;
 use common\models\Filenmkd;
 use common\models\search\FilenmkdSearch;
 use common\models\Uploadfile;
+use common\models\User;
 use yii\web\UploadedFile;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 
 /**
@@ -39,11 +41,20 @@ class FilenmkdController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMINNMKD
+            && Yii::$app->user->identity->role !== User::ROLE_CHIEF
+            && Yii::$app->user->identity->role !== User::ROLE_STAFF) {
+            throw new ForbiddenHttpException('Access denied');
+        }
         $searchModel = new FilenmkdSearch();
+        if( Yii::$app->user->identity->role === User::ROLE_STAFF) {
+            $dataProvider = $searchModel->search(ArrayHelper::merge( Yii::$app->request->queryParams, [$searchModel->formName() => ['user_id' => Yii::$app->user->identity->getId()]]) );
 
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams//ArrayHelper::merge( Yii::$app->request->queryParams], [$searchModel->formName() => ['user_id' => 3])
-        );
-        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams, [user_id => 3] );
+        }else{
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams//ArrayHelper::merge( Yii::$app->request->queryParams], [$searchModel->formName() => ['user_id' => 3])
+            );
+        }
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -58,6 +69,11 @@ class FilenmkdController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMINNMKD
+            && Yii::$app->user->identity->role !== User::ROLE_CHIEF
+            && Yii::$app->user->identity->role !== User::ROLE_STAFF) {
+            throw new ForbiddenHttpException('Access denied');
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -70,7 +86,11 @@ class FilenmkdController extends Controller
      */
     public function actionCreate($action = 0)
     {
-
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMINNMKD
+            && Yii::$app->user->identity->role !== User::ROLE_CHIEF
+            && Yii::$app->user->identity->role !== User::ROLE_STAFF) {
+            throw new ForbiddenHttpException('Access denied');
+        }
         $disciplines = Yii::$app->db->createCommand(
             'select discipline.id, discipline.name from user, discipline, discipline_user
             WHERE discipline_user.discipline_id = discipline.id and discipline_user.user_id = user.id AND user.id = '.Yii::$app->user->identity->getId())//
@@ -94,14 +114,14 @@ class FilenmkdController extends Controller
                     $model->component_nmkd_id = $check;
                     $model->user_id = Yii::$app->user->identity->getId();
                     $model->discipline_id = Yii::$app->request->post('list');
-                    $model->signature = 'not loaded';
+                    $model->signature = 'не завантажено';
                     $model->protocol_chair =0;
                     $model->protocol_fuculty =0;
                     $model->protocol_university =0;
                     $model->total =0;
-                    $model->created_at = time();
+                    //$model->created_at = time();
                     $model->created_by = Yii::$app->user->identity->getId();//user_id
-                    $model->updated_at = time();
+                    // $model->updated_at = time();
                     $model->updated_by=Yii::$app->user->identity->getId();//user_id
                     $model->comment = '';
 
@@ -134,18 +154,37 @@ class FilenmkdController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMINNMKD
+            && Yii::$app->user->identity->role !== User::ROLE_CHIEF
+            && Yii::$app->user->identity->role !== User::ROLE_STAFF) {
+            throw new ForbiddenHttpException('Access denied');
+        }
 
         $model = $this->findModel($id);
-        // $file = new Uploadfile();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            /*$file->imageFile = UploadedFile::getInstance($file, 'imageFile');
-            if ($file->upload()) {
-                $model->name = $file->imageFile->name;
-                $model->save();
-                // file is uploaded successfully return;
 
-            }*/
-            return $this->redirect(['view', 'id' => $model->id]);
+
+
+
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+            //$model->updated_at = time();
+            if($model->name === ''){
+                $model->signature = 'не завантажено';
+                $model->total = 0;
+                $model->protocol_fuculty = 0;
+                $model->protocol_chair =0;
+                $model->protocol_university = 0;
+            } else {
+                if($model->total === 0){
+                    $model->signature = 'на розгляді';
+                } else {
+                    $model->signature = 'затверджено';
+                    $model->protocol_fuculty = 1;
+                    $model->protocol_chair = 1;
+                    $model->protocol_university = 1;
+                }
+            }
+            $model->save(false);
+            return $this->redirect(['view', 'id' => $model->id, 'tot' => $model->total]);
         } else {
             return $this->render('update', [
                 'model' => $model,// 'file' =>$file,
@@ -161,17 +200,23 @@ class FilenmkdController extends Controller
      */
     public function actionFile($id)
     {
-
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMINNMKD
+            && Yii::$app->user->identity->role !== User::ROLE_CHIEF
+            && Yii::$app->user->identity->role !== User::ROLE_STAFF) {
+            throw new ForbiddenHttpException('Access denied');
+        }
         $up_file = new Uploadfile();
-        $model = $this->findModel($id);
+
 
         if (Yii::$app->request->isPost) {
             $up_file->imageFile = UploadedFile::getInstance($up_file, 'imageFile');
+            $model = $this->findModel($id);
             if ($up_file->upload($model->user_id)) {
+
                 $model->name =   $up_file->imageFile->name;
-                $model->signature = 'out for approval';
-                $model->save();
-                return $this->redirect(['view', 'id' => $model->id]);
+                $model->signature = 'на розгляді';
+                $model->save( false);
+                return $this->redirect(['view', 'id' => $model->id, ]);
 
             }
         }
@@ -180,6 +225,11 @@ class FilenmkdController extends Controller
     }
     public function actionDelete($id)
     {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMINNMKD
+            && Yii::$app->user->identity->role !== User::ROLE_CHIEF
+            && Yii::$app->user->identity->role !== User::ROLE_STAFF) {
+            throw new ForbiddenHttpException('Access denied');
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -187,10 +237,15 @@ class FilenmkdController extends Controller
 
     public function actionDeletefile($id)
     {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMINNMKD
+            && Yii::$app->user->identity->role !== User::ROLE_CHIEF
+            && Yii::$app->user->identity->role !== User::ROLE_STAFF) {
+            throw new ForbiddenHttpException('Access denied');
+        }
         $model =  $this->findModel($id);
         $model ->name = '';
-        $model->signature ='not loaded';
-        $model->save();
+        $model->signature ='не завантажено';
+        $model->save(false);
         //удалить файл из папки
 
         return $this->redirect(['view', 'id' => $model->id]);
@@ -198,6 +253,11 @@ class FilenmkdController extends Controller
 
     public function actionDownload($id)
     {
+        if (Yii::$app->user->identity->role !== User::ROLE_ADMINNMKD
+            && Yii::$app->user->identity->role !== User::ROLE_CHIEF
+            && Yii::$app->user->identity->role !== User::ROLE_STAFF) {
+            throw new ForbiddenHttpException('Access denied');
+        }
         $model = $this->findModel($id);
         $file = Yii::getAlias('@frontend/web/uploads/'.$model->user_id.'/'.$model->name);
 

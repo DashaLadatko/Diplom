@@ -14,9 +14,11 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
 
-    <?= $form->field($model, 'disciplineName')->textInput(['readonly'=>'readonly']) ?>
+    <?= $form->field($model, 'disciplineName')->textInput(['readonly'=>'readonly'])->label('Дисципліна') ?>
 
-    <?= $form->field($model, 'componentnmkdName')->textInput(['readonly'=>'readonly']) ?>
+    <?= $form->field($model, 'componentnmkdName')->textInput(['readonly'=>'readonly'])->label('Компонент НМКД') ?>
+
+    <?= $form->field($model, 'total')->checkbox() ?>
 
     <?php if($model->name === '' || $model->name === NULL ){ if(  $model->user_id === Yii::$app->user->identity->getId()){?>
         <?=  Html::a('Завантажити файл на сервер', ['file', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
@@ -30,10 +32,10 @@ use yii\widgets\ActiveForm;
             ]]) ?>
         <?php } } ?>
 
-    <?= $form->field($model, 'fullName')->textInput(['readonly'=>'readonly']) ?>
+    <?= $form->field($model, 'fullName')->textInput(['readonly'=>'readonly'])->label('Викладач') ?>
 
 
-    <?= $form->field($model, 'signature')->dropDownList([ 'not loaded' => 'Не завантажено', 'out for approval' => 'На розгляді', 'rejected' => 'Відхилено', 'approved' => 'Затверджено', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'signature')->dropDownList([ 'не завантажено', 'на розгляді',  'затверджено' ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'protocol_chair')->checkbox(['label' => 'Протокол кафедри' ]) ?>
 
@@ -41,21 +43,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'protocol_university')->checkbox(['label' => 'Протокол університету' ]) ?>
 
-    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'comment')->textInput(['maxlength' => true, 'readonly' => (Yii::$app->user->identity->role !==  common\models\User::ROLE_CHIEF) ? true : false]) ?>
 
-    <?= $form->field($model, 'total')->checkbox([
-        'labelOptions' => [
-            'style' => 'padding-left:20px;'
-        ],
-        'disabled' => false]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput(['readonly'=>'readonly']) ?>
 
-    <?= $form->field($model, 'created_by')->textInput(['readonly'=>'readonly']) ?>
 
-    <?= $form->field($model, 'updated_at')->textInput(['readonly'=>'readonly']) ?>
-
-    <?= $form->field($model, 'updated_by')->textInput(['readonly'=>'readonly']) ?>
 
 
     <div class="form-group">

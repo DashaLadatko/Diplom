@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Filenmkd */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Filenmkds', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Файли НМКД', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="filenmkd-view">
@@ -29,10 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'disciplineName',
-            'componentnmkdName',
+            ['label'=>'Дисципліна',
+                'attribute'=>'disciplineName',],
+            ['label'=>'Викладач',
+                'attribute'=>'fullName',],
+            ['label'=>'Компонент НМКД',
+                'attribute'=>'componentnmkdName'],
             'name',
-            'fullName',
+
             'signature',
             'protocol_chair',
             'protocol_fuculty',
@@ -43,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_by',
             'updated_at',
             'updated_by',
+
         ],
     ]) ?>
 

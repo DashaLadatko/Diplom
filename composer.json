@@ -23,7 +23,8 @@
         "kartik-v/yii2-widget-datepicker": "@dev",
         "kartik-v/yii2-tabs-x": "@dev",
         "kartik-v/yii2-widget-fileinput": "@dev",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev",
+        "miloschuman/yii2-highcharts-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

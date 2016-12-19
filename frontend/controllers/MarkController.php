@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Mark;
+use common\models\Course;
 use common\models\search\MarkSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -154,5 +155,31 @@ class MarkController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    public function actionGraph()
+    {
+        $evaluation = array();
+
+        $components = Yii::$app->db->createCommand( 'SELECT DISTINCT (topic_course.course_id) as course1 FROM workshop, user, topic, mark, topic_course'
+            .' WHERE workshop.topic_id = topic_course.topic_id AND mark.user_id = user.id AND mark.workshop_id=workshop.id'
+            .' AND topic.id=topic_course.topic_id AND user.id = '.Yii::$app->user->identity->getId() )->queryAll();
+
+        foreach ($components as $row){
+            $model = Yii::$app->db->createCommand( 'SELECT mark.id, topic.name, mark.evaluation as eval, topic_course.course_id FROM workshop, user, topic, mark, topic_course'
+                .' WHERE workshop.topic_id = topic_course.topic_id AND mark.user_id = user.id AND mark.workshop_id=workshop.id'
+                .' AND topic.id=topic_course.topic_id AND user.id = '.Yii::$app->user->identity->getId().
+                ' AND topic_course.course_id='.$row['course1'] )->queryAll();
+
+            $mod1 = array();
+            foreach ($model as $mod){
+
+                $mod1[] =$mod['eval'];
+            }
+            $cour = Course::findOne($row['course1']);
+            $evaluation[] = array('name' => $cour->name, 'data'=>array_map('intVal', $mod1));
+        }
+        return $this->render('graph', [
+            'evaluation' => $evaluation,
+        ]);
     }
 }

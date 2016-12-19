@@ -3,6 +3,10 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use common\components\extended\extActiveRecord;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "file_nmkd".
@@ -32,6 +36,8 @@ class Filenmkd extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+
     public static function tableName()
     {
         return 'file_nmkd';
@@ -40,6 +46,24 @@ class Filenmkd extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'
+                ],
+            ],
+            'blameable' => [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by'
+            ],
+        ];
+    }
     public function rules()
     {
         return [
@@ -61,7 +85,7 @@ class Filenmkd extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'discipline_id' => 'Discipline ID',
-            'component_nmkd_id' => 'Component Nmkd ID',
+            'component_nmkd_id' => 'Компонент НМКД',
             'name' => 'Назва файлу',
             'user_id' => 'User ID',
             'signature' => 'Статус',
@@ -70,10 +94,10 @@ class Filenmkd extends \yii\db\ActiveRecord
             'protocol_university' => 'Протокол університету',
             'comment' => 'Коментар',
             'total' => 'Остаточно затверджено',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'created_at' => 'Дата створення',
+            'updated_at' => 'Дата редагування',
+            'created_by' => 'Створено',
+            'updated_by' => 'Відредаговано',
         ];
     }
 

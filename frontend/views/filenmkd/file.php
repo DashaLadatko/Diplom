@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $form->field($up_file, 'imageFile')->fileInput() ?>
     <div class="form-group">
-        <?= Html::submitButton('Звантажаити', ['class' =>  'btn btn-success']) ?>
+        <?= Html::submitButton('Завантажити', ['class' =>  'btn btn-success']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

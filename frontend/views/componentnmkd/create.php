@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Componentnmkd */
 
-$this->title = 'Create Componentnmkd';
-$this->params['breadcrumbs'][] = ['label' => 'Componentnmkds', 'url' => ['index']];
+$this->title = 'Додати компоненти НМКД';
+$this->params['breadcrumbs'][] = ['label' => 'Компоненти НМКД', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="componentnmkd-create">

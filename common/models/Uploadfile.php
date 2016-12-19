@@ -14,7 +14,8 @@ class Uploadfile extends Model
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'docs, txt'],
+            [['imageFile'], 'file', 'skipOnEmpty' => false,
+                'extensions' => 'doc, docx, xls, xlsx, odt, pdf, txt, pptx', 'checkExtensionByMimeType'=>false]
         ];
     }
 

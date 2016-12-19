@@ -3,6 +3,10 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use common\components\extended\extActiveRecord;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "component_nmkd".
@@ -29,6 +33,23 @@ class Componentnmkd extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'
+                ],
+            ],
+            'blameable' => [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by'
+            ],
+        ];
+    }
     public function rules()
     {
         return [
@@ -46,10 +67,10 @@ class Componentnmkd extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Назва компоненту',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'created_at' => 'Дата створення',
+            'updated_at' => 'Дата редагування',
+            'created_by' => 'Створено',
+            'updated_by' => 'Відредаговано',
         ];
     }
 

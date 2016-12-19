@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'user_id')->textInput() ?>
 
-    <?= $form->field($model, 'signature')->dropDownList([ 'not loaded' => 'Not loaded', 'out for approval' => 'Out for approval', 'rejected' => 'Rejected', 'approved' => 'Approved', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'signature')->dropDownList([ 'не завантажено', 'на розгляді',  'затверджено' ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'protocol_chair')->checkbox(['label' => 'protocol chair' ]) ?>
 
