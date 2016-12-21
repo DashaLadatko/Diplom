@@ -10,6 +10,7 @@ use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\User;
+use common\models\Mark;
 /**
  * WorkshopController implements the CRUD actions for Workshop model.
  */
@@ -147,6 +148,31 @@ class WorkshopController extends Controller
      * @return Workshop the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
+
+    public function actionAddmarks()
+    {
+        if (Yii::$app->request->post()) {
+            $model = Mark::findOne([
+                'user_id' => Yii::$app->request->post('user_id'),
+                'workshop_id' => Yii::$app->request->post('workshop_id'),
+            ]);
+
+            if ($model) {
+                $model->evaluation = Yii::$app->request->post('evaluation');
+            } else {
+                $model = new Mark();
+                $model->user_id = Yii::$app->request->post('user_id');
+                $model->workshop_id = Yii::$app->request->post('workshop_id');
+                $model->evaluation = Yii::$app->request->post('evaluation');
+            }
+
+            if ($model->save()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected function findModel($id)
     {
         if (($model = Workshop::findOne($id)) !== null) {

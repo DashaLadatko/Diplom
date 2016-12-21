@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\ForbiddenHttpException;
 use common\models\User;
+use common\models\CourseGroupUser;
 
 /**
  * CourseController implements the CRUD actions for Course model.
@@ -123,6 +124,44 @@ class CourseController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    public function actionAddgroupbycourse($id)
+    {
+        $model = new CourseGroupUser();
+        $request = Yii::$app->request->post();
+//        if ($request['_pjax']) {
+        if (!CourseGroupUser::find()->where(['group_id' => $id, 'course_id' => $request['course_id']])->one()) {
+            if ($id) {
+                $model->course_id = $request['course_id'];
+                $model->group_id = $id;
+                if ($model->save()) {
+                    Yii::$app->getSession()->setFlash('success', "Групу додано");
+                    return true;
+                } else {
+                    Yii::$app->getSession()->setFlash('error', "Щось зламалось. Групу не додано");
+                }
+            }
+        }
+        Yii::$app->getSession()->setFlash('error', "Дана група вже додана до цього курсу");
+//        }
+        return false;
+    }
+
+    public function actionViewgroup($id)
+    {
+        $request = Yii::$app->request->get();
+//        if (!$request['_pjax']) {
+        $group = Group::findOne($id);
+        $course = Course::findOne($request['course']);
+        $userSearch = new UserSearch();
+        return $this->render('group_view', [
+            'course' => $course,
+            'group' => $group,
+            'userSearch' => $userSearch,
+        ]);
+//        }
+    }
+
     /**
      * Finds the Course model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

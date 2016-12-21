@@ -34,7 +34,7 @@ $this->title = 'Система дистанційного навчання';
 
         <div class="row info-block">
             <div class="col-sm-4">
-                <img src="frontend/web/img/sturtup.png" alt="image">
+                <img src="frontend/web/img/logo_kits.gif" alt="image">
             </div>
             <div class="col-sm-8">
                 <h2>Концепція кафедри</h2>
@@ -42,6 +42,9 @@ $this->title = 'Система дистанційного навчання';
                     освітнього напрямів, що орієнтовані на підготовку висококваліфікованих фахівців з інформаційних
                     технологій, систем штучного інтелекту, аналітики комп’ютерних систем, математичного програмного
                     забезпечення обчислювальних машин і систем.
+                    <p>Кафедра комп'ютерних технологій та інформаційних систем заснована на підставі рішення вченої ради
+                    Полтавського національного технічного університету імені Юрія Кондратюка в якості випускної кафедри у складі створеного факультету
+                    інформаційних та телекомунікаційних технологій і систем.</p>
                 </p>
 
                 <p><a class="btn btn-default" href="http://fitts.pntu.edu.ua/ua/koncepciya">Детальніше &raquo;</a></p>
@@ -51,7 +54,7 @@ $this->title = 'Система дистанційного навчання';
 
         <div class="row info-block">
             <div class="col-sm-4">
-                <img src="frontend/web/img/sturtup.png" alt="image">
+                <img src="frontend/web/img/Data-Analysis.jpg" alt="image">
             </div>
             <div class="col-sm-8">
                 <h2>Спеціальності</h2>
