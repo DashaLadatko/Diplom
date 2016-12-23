@@ -78,13 +78,8 @@ class TopicController extends Controller
     {
         $model = new Topic();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $date=Yii::$app->request->post("Topic")["time_of_passage"];
-            $model->time_of_passage=strtotime($date);
-            if($model->save()){
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
-            }
-
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -102,7 +97,7 @@ class TopicController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
