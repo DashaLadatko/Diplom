@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model common\models\Filenmkd */
 
 $this->title = 'Редагування ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Filenmkds', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Файли НМКД', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Оновлення';
 ?>
 <div class="filenmkd-update">
 

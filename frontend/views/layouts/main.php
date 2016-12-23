@@ -65,7 +65,7 @@ AppAsset::register($this);
             $menuItems[] = ['label' => 'Головна', 'url' => ['/site/index']];
             $menuItems[] = ['label' => 'Про нас', 'url' => ['/site/about']];
             $menuItems[] = ['label' => 'Мої дисципліни', 'url' => ['/discipline/index']];
-            $menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
+            //$menuItems[] = ['label' => 'Курси', 'url' => ['/course/index']];
             $menuItems[] = ['label' => 'Повідомлення', 'url' => ['/message/index']];
             $menuItems[] = ['label' => 'Контакти', 'url' => ['/site/contact']];
             $menuItems[] = ['label' => 'Профіль', 'url' => ['/user/profile', 'id' => Yii::$app->user->id]];
@@ -132,7 +132,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Ладатко Дарія 601-ТШм <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Ладатко Дарія, Даценко Катерина, Данильченко Олександр 601-ТШм <?= date('Y') ?></p>
 
         <!--      <p class="pull-right">--><? //= Yii::powered() ?><!--</p>-->
     </div>

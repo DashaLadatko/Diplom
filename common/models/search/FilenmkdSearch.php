@@ -53,6 +53,9 @@ class FilenmkdSearch extends Filenmkd
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 5,
+            ]
         ]);
 
         $this->load($params);

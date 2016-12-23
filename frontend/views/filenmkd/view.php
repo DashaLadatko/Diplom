@@ -39,7 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'fullName',],
             ['label'=>'Компонент НМКД',
                 'attribute'=>'componentnmkdName'],
-            'name',
+            ['label'=>'Назва файлу',
+            'attribute'=>'name',
+                'value' => $model->name != null ? $model->name : 'Файл не завантажено',
+            ],
 
             'signature',
             [

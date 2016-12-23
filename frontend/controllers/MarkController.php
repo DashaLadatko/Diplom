@@ -182,4 +182,24 @@ class MarkController extends Controller
             'evaluation' => $evaluation,
         ]);
     }
+
+    public function actionGraphcourse()
+    {
+        $evaluation = array();
+
+        $components = Yii::$app->db->createCommand( 'SELECT course_id FROM `course_user` WHERE user_id = '.Yii::$app->user->identity->getId() )->queryAll();
+
+        foreach ($components as $row){
+            $model = Yii::$app->db->createCommand( 'SELECT AVG( mark.evaluation) as eval '
+                .' FROM workshop, user, topic, mark, topic_course '
+                .'WHERE workshop.topic_id = topic_course.topic_id AND mark.user_id = user.id AND mark.workshop_id=workshop.id '
+                .' AND topic.id=topic_course.topic_id AND topic_course.course_id ='.$row['course_id'] )->queryAll();
+
+            $cour = Course::findOne($row['course_id']);
+            $evaluation[] = array('name' => $cour->name, 'data'=>[(int)$model[0]['eval'],]);
+        }
+        return $this->render('graphcourse', [
+            'evaluation' => $evaluation,
+        ]);
+    }
 }

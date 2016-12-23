@@ -173,6 +173,6 @@ class User extends extUser
     # Getter
     public function getFullName()
     {
-        return $this->last_name . ' ' . $this->first_name . ' ' . $this->second_name;
+        return $this->first_name . ' ' . $this->second_name . ' ' . $this->last_name  ;
     }
 }
