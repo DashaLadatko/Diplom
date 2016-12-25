@@ -14,11 +14,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="course-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<!--    --><?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Створити курс', ['create'], ['class' => 'btn btn-success']) ?>
+        <?  if (\common\models\User::isRole(['Staff', 'Admin'])) {
+            Html::a('Створити курс', ['create'], ['class' => 'btn btn-success']);
+        }
+        ?>
+
+
     </p>
+
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -64,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'data-method' => 'post',
                             'data-pjax' => '0',
                         ];
-                        return ($model->status === User::STATUS_ACTIVE && (Yii::$app->user->identity->role === User::$roles[0])) ? Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, $options) : "";
+                        return ($model->status === User::STATUS_ACTIVE && (Yii::$app->user->identity->role == User::$roles[0])) ? Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, $options) : "";
                     },
                     'restore' => function ($url, $model, $key) {
                         $options = [

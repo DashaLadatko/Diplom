@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Курси дисципліни', Url::toRoute(['/course/create']), ['class' => 'btn btn-primary']); ?>
+        <?= Html::a('Курси дисципліни', Url::toRoute(['/course/index']), ['class' => 'btn btn-primary']); ?>
 
         <?php
 
