@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?  if (\common\models\User::isRole(['Staff', 'Admin'])) {
-            Html::a('Створити курс', ['create'], ['class' => 'btn btn-success']);
+           echo Html::a('Створити курс', ['create'], ['class' => 'btn btn-success']);
         }
         ?>
 

@@ -18,7 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Створити тему', ['create'], ['class' => 'btn btn-success']) ?>
+        <?  if (\common\models\User::isRole(['Staff', 'Admin'])) {
+            echo Html::a('Створити тему', ['create'], ['class' => 'btn btn-success']);
+        }
+        ?>
+
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,

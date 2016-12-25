@@ -22,13 +22,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Додати завдання', Url::toRoute(['/workshop/create']), ['class' => 'btn btn-primary']); ?>
-        <?= Html::a('Перегляд та оцінювання відповідей', Url::toRoute(['/mark/index']), ['class' => 'btn btn-primary']); ?>
+        <? if (\common\models\User::isRole(['Staff', 'Admin'])) {
+
+            echo Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+            echo Html::a('Додати завдання', Url::toRoute(['/workshop/create']), ['class' => 'btn btn-primary']);
+            echo Html::a('Перегляд та оцінювання відповідей', Url::toRoute(['/mark/index']), ['class' => 'btn btn-primary']);
+        }
+        ?>
+        <? if (\common\models\User::isRole(['Student'])) {
+
+
+            echo Html::a('Завантажити відповідь', Url::toRoute(['/workshop/create']), ['class' => 'btn btn-primary']);
+
+        }
+        ?>
 
         <?php
 
         if ($model->isActive()) {
+        if (\common\models\User::isRole(['Staff', 'Admin'])) {
             echo Html::a('Видалити', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -36,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]);
+        }
         } else {
             echo Html::a('Відновити', ['restore', 'id' => $model->id], [
                 'class' => 'btn btn-success',

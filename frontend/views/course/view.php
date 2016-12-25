@@ -21,11 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Теми курсу', Url::toRoute(['/topic/index']), ['class' => 'btn btn-primary']); ?>
-        <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php if (\common\models\User::isRole(['Staff', 'Admin'])){
+         Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+        }
+        ?>
 
         <?php
 
         if ($model->isActive()) {
+        if (\common\models\User::isRole(['Staff', 'Admin'])) {
             echo Html::a('Видалити', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -33,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]);
+        }
         } else {
             echo Html::a('Відновити', ['restore', 'id' => $model->id], [
                 'class' => 'btn btn-success',

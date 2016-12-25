@@ -75,28 +75,29 @@ $this->title = $model->getFullName();
           </div>
 
             <?php
+            if (\common\models\User::isRole(['Student'])) {
+                /** @var \common\models\Mark[] $marks */
+                $marks = $model->getMark()->where(['type' => \common\models\Mark::TYPE_NO_ACCEPT])->all();
 
-            /** @var \common\models\Mark[] $marks */
-            $marks =  $model->getMark()->where(['type' => \common\models\Mark::TYPE_NO_ACCEPT])->all();
+                if ($marks) {
 
-            if($marks){
-
-                echo "<h4>Перелік завдань, повернутих на доопрацювання:</h4>";
-                foreach ($marks as $mark) {
-                    echo "<a href='http://diplom/frontend/web/mark/update?id=$mark->id'><div class=\"alert alert-warning\" role=\"alert\">Назва завдання: {$mark->workshop->name}
+                    echo "<h4>Перелік завдань, повернутих на доопрацювання:</h4>";
+                    foreach ($marks as $mark) {
+                        echo "<a href='http://diplom/frontend/web/mark/update?id=$mark->id'><div class=\"alert alert-warning\" role=\"alert\">Назва завдання: {$mark->workshop->name}
                             <p>Коментар викладача: $mark->text</p></div></a>";
+                    }
                 }
-            }
 
-            /** @var \common\models\Topic[] $topics */
-            $topics =  \common\models\Topic::find()->where(['between', 'time_of_passage', strtotime("now"), strtotime("+1 week")])->all();
+                /** @var \common\models\Topic[] $topics */
+                $topics = \common\models\Topic::find()->where(['between', 'time_of_passage', strtotime("now"), strtotime("+1 week")])->all();
 
-            if($topics){
+                if ($topics) {
 
-                echo "<h4>Термін проходження добігає кінця для таких тем:</h4>";
-                foreach ($topics as $topic) {
-                    echo "<a href='http://diplom/frontend/web/topic/view?id=$topic->id'><div class=\"alert alert-info\" role=\"alert\">Назва теми: {$topic->name}
+                    echo "<h4>Термін проходження добігає кінця для таких тем:</h4>";
+                    foreach ($topics as $topic) {
+                        echo "<a href='http://diplom/frontend/web/topic/view?id=$topic->id'><div class=\"alert alert-info\" role=\"alert\">Назва теми: {$topic->name}
                             <p>Кінцева дата: $topic->time_of_passage</p></div></a>";
+                    }
                 }
             }
             ?>
