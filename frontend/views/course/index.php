@@ -3,30 +3,39 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\User;
+use miloschuman\highcharts\Highcharts;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\CourseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $this->title = 'Курси';
 $this->params['breadcrumbs'][] = $this->title;
 
-use miloschuman\highcharts\Highcharts;
-
-echo Highcharts::widget([
-    'options' => [
-        'title' => ['text' => 'Успішність'],
-        'xAxis' => [
-            'categories' => []//['Тема 1', 'Тема 2', 'Тема 3', 'Тема 4', 'Тема 5']
-        ],
-        'yAxis' => [
-            'title' => ['text' => 'Оцінка']
-        ],
-        'series' =>
-            $evaluation
-    ]
-]);
 
 
 ?>
+<?php if (Yii::$app->user->identity->role === User::ROLE_STUDENT) { ?>
+    <p>
+        <?=
+        Highcharts::widget([
+            'options' => [
+                'title' => ['text' => 'Успішність'],
+                'xAxis' => [
+                    'categories' => []//['Тема 1', 'Тема 2', 'Тема 3', 'Тема 4', 'Тема 5']
+                ],
+                'yAxis' => [
+                    'title' => ['text' => 'Оцінка']
+                ],
+                'series' =>
+                    $evaluation
+            ]
+        ]);
+
+
+        ?>
+    </p>
+<?php } ?>
+
+
 <div class="course-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
