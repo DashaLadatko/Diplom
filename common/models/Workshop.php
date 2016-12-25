@@ -23,7 +23,8 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $updated_at
  * @property integer $updated_by
  *
- * @property Mark[] $marks
+ * @property Mark[] $evaluation
+ *
  * @property Topic $topic
  */
 class Workshop extends extActiveRecord

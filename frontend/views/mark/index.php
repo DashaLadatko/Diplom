@@ -3,11 +3,12 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\User;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\MarkSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Marks';
+$this->title = 'Оцінювання';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mark-index">
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Mark', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Оцінити роботу', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,8 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+//            'id',
             'user_id',
+//            [
+//                'label'=>'Студент',
+//                'value'=> $model->user_id->getFullName(),
+//
+//            ],
             'workshop_id',
             'text',
             'evaluation',
@@ -38,6 +44,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'updated_by',
 
             ['class' => 'yii\grid\ActionColumn'],
+
+
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

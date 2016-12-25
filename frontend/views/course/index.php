@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -7,9 +6,26 @@ use common\models\User;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\CourseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Курси';
 $this->params['breadcrumbs'][] = $this->title;
+
+use miloschuman\highcharts\Highcharts;
+
+echo Highcharts::widget([
+    'options' => [
+        'title' => ['text' => 'Успішність'],
+        'xAxis' => [
+            'categories' => []//['Тема 1', 'Тема 2', 'Тема 3', 'Тема 4', 'Тема 5']
+        ],
+        'yAxis' => [
+            'title' => ['text' => 'Оцінка']
+        ],
+        'series' =>
+            $evaluation
+    ]
+]);
+
+
 ?>
 <div class="course-index">
 
@@ -19,17 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Створити курс', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+    <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             //'id',
             'name',
             'description:ntext',
             //'status',
-           // 'created_at',
+            // 'created_at',
             // 'created_by',
             // 'updated_at',
             // 'updated_by',
@@ -45,13 +60,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete} {restore}',
                 'buttons' => [
-
                     'view' => function ($url) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
                             'title' => Yii::t('app', 'Переглянути')
                         ]);
                     },
-
                     'update' => function ($url, $model, $key) {
                         $options = ['title' => Yii::t('yii', 'Редагувати'), 'aria-label' => Yii::t('yii', 'Редагувати'), 'data-pjax' => '0'];
                         return ($model->status === User::STATUS_ACTIVE) ? Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options) : '';
@@ -79,4 +92,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+    <?php Pjax::end(); ?></div>

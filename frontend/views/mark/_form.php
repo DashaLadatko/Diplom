@@ -3,7 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\User;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
+use common\models\Workshop;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Mark */
@@ -12,21 +14,22 @@ use yii\helpers\Url;
 
 <div class="mark-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <? if (isset($model->user_id)) {
         echo \common\models\User::getById($model->user_id)->getFullName();
     } ?>
 
 
-    <?= $form->field($model, 'workshop_id')->textInput() ?>
+<!--    --><?//= $form->field($model, 'workshop_id')->textInput() ?>
+    <?= $form->field($model, 'workshop_id')->dropDownList(ArrayHelper::map(Workshop::find()->where(['status' => Workshop::STATUS_ACTIVE])->all(), 'id', 'name'),['prompt' => 'Виберіть роботу...', 'class' => 'form-control']) ?>
 
     <?= $form->field($model, 'text')->textarea(); ?>
 
     <? if (\common\models\User::isRole(['Staff', 'Admin'])) {
-        echo $form->field($model, 'evaluation')->dropDownList(['1' => '1', '2' => '2', '3' => '3', '4' => '4',], ['prompt'=>'Choose...']);
+        echo $form->field($model, 'evaluation')->dropDownList(['1' => '1', '2' => '2', '3' => '3', '4' => '4','5' => '5',], ['prompt'=>'Виберіть оцінку ..']);
 
-        echo $form->field($model, 'type')->dropDownList([\common\models\Mark::TYPE_ACCEPT => 'ACCEPT', \common\models\Mark::TYPE_NO_ACCEPT => 'NO_ACCEPT'], ['prompt'=>'Choose...']);
+        echo $form->field($model, 'type')->dropDownList([\common\models\Mark::TYPE_ACCEPT => 'Прийнято', \common\models\Mark::TYPE_NO_ACCEPT => 'На доопрацювання'], ['prompt'=>'Виберіть тип роботи...']);
     } ?>
 
 

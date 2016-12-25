@@ -1,17 +1,34 @@
 <?php
-
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use common\models\User;
 use common\models\Department;
+use miloschuman\highcharts\Highcharts;
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\DisciplineSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Дисципліни';
 $this->params['breadcrumbs'][] = $this->title;
+
+
+echo Highcharts::widget([
+    'options' => ['chart' => [
+        'type' => 'bar' ],
+        'title' => ['text' => 'Середня успішність студентів по курсам'],
+        'xAxis' => [
+            'categories' => ['']
+        ],
+        'yAxis' => [
+            'title' => ['text' => 'Середня оцінка по курсу']
+        ],
+        'series' =>
+            $evaluation
+    ]
+]);
+
 ?>
 <div class="discipline-index">
 
@@ -21,30 +38,29 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Додати дисципліну', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+    <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-           // 'id',
+            // 'id',
             [
                 'attribute' => 'department_id',
                 'value' => function ($data) {
                     return $data->department->name;
                 },
-             'filter' => \kartik\select2\Select2::widget([
-                'model' => $searchModel,
-                 'attribute' => 'department_id',
-                'data' => ArrayHelper::map(Department::find()->where(['status' => Department::STATUS_ACTIVE])->all(), 'id', 'name'),
-                'options' => ['placeholder' => 'Виберіть кафедру...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ]),
+                'filter' => \kartik\select2\Select2::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'department_id',
+                    'data' => ArrayHelper::map(Department::find()->where(['status' => Department::STATUS_ACTIVE])->all(), 'id', 'name'),
+                    'options' => ['placeholder' => 'Виберіть кафедру...'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]),
             ],
             'name',
-           // 'status',
+            // 'status',
             [
                 'attribute' => 'status',
                 'value' => function ($data) {
@@ -57,13 +73,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view} {update} {delete} {restore}',
                 'buttons' => [
-
                     'view' => function ($url) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
                             'title' => Yii::t('app', 'Переглянути')
                         ]);
                     },
-
                     'update' => function ($url, $model, $key) {
                         $options = ['title' => Yii::t('yii', 'Редагувати'), 'aria-label' => Yii::t('yii', 'Редагувати'), 'data-pjax' => '0'];
                         return ($model->status === User::STATUS_ACTIVE) ? Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options) : '';
@@ -91,4 +105,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+    <?php Pjax::end(); ?></div>

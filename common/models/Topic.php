@@ -32,6 +32,7 @@ class Topic extends extActiveRecord
     {
         return 'topic';
     }
+
     public function behaviors()
     {
         return [
@@ -49,15 +50,17 @@ class Topic extends extActiveRecord
             ],
         ];
     }
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
+            [['time_of_passage'], 'filter', 'filter' => 'strtotime'],
             [['name', 'time_of_passage'], 'required'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            [[ 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }

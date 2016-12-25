@@ -89,17 +89,24 @@ class Mark extends extActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'workshop_id' => 'Workshop ID',
-            'text' => 'Text',
-            'evaluation' => 'Evaluation',
-            'type' => 'Type',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'user_id' => 'Студент',
+            'workshop_id' => 'Робота',
+            'text' => 'Текст',
+            'evaluation' => 'Оцінка',
+            'type' => 'Тип',
+            'status' => 'Статус',
+            'created_at' => 'Дата створення',
+            'updated_at' => 'Дата редагування',
+            'created_by' => 'Створено',
+            'updated_by' => 'Відредаговано',
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+      $a =  Attachment::upload($this);
+
+        $t = 0;
     }
 
     /**

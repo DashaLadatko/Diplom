@@ -12,8 +12,6 @@ $this->title = $model->getFullName();
 
 ?>
 
-
-      </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
 
 
@@ -75,7 +73,37 @@ $this->title = $model->getFullName();
                     </div>
 
           </div>
+
+            <?php
+
+            /** @var \common\models\Mark[] $marks */
+            $marks =  $model->getMark()->where(['type' => \common\models\Mark::TYPE_NO_ACCEPT])->all();
+
+            if($marks){
+
+                echo "<h4>Перелік завдань, повернутих на доопрацювання:</h4>";
+                foreach ($marks as $mark) {
+                    echo "<a href='http://diplom/frontend/web/mark/update?id=$mark->id'><div class=\"alert alert-warning\" role=\"alert\">Назва завдання: {$mark->workshop->name}
+                            <p>Коментар викладача: $mark->text</p></div></a>";
+                }
+            }
+
+            /** @var \common\models\Topic[] $topics */
+            $topics =  \common\models\Topic::find()->where(['between', 'time_of_passage', strtotime("now"), strtotime("+1 week")])->all();
+
+            if($topics){
+
+                echo "<h4>Термін проходження добігає кінця для таких тем:</h4>";
+                foreach ($topics as $topic) {
+                    echo "<a href='http://diplom/frontend/web/topic/view?id=$topic->id'><div class=\"alert alert-info\" role=\"alert\">Назва теми: {$topic->name}
+                            <p>Кінцева дата: $topic->time_of_passage</p></div></a>";
+                }
+            }
+            ?>
+
         </div>
-      </div>
-    </div>
+
+
+
+
 

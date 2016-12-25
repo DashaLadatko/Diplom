@@ -1,7 +1,5 @@
 <?php
-
 namespace frontend\controllers;
-
 use Yii;
 use common\models\Discipline;
 use common\models\search\DisciplineSearch;
@@ -10,9 +8,7 @@ use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\User;
-
-
-
+use common\models\Course;
 /**
  * DisciplineController implements the CRUD actions for Discipline model.
  */
@@ -43,7 +39,6 @@ class DisciplineController extends Controller
             ],
         ];
     }
-
     /**
      * Lists all Discipline models.
      * @return mixed
@@ -53,12 +48,26 @@ class DisciplineController extends Controller
         $searchModel = new DisciplineSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $evaluation = array();
+
+        $components = Yii::$app->db->createCommand( 'SELECT course_id FROM `course_user` WHERE user_id = '.Yii::$app->user->identity->getId() )->queryAll();
+
+        foreach ($components as $row){
+            $model = Yii::$app->db->createCommand( 'SELECT AVG( mark.evaluation) as eval '
+                .' FROM workshop, user, topic, mark, topic_course '
+                .'WHERE workshop.topic_id = topic_course.topic_id AND mark.user_id = user.id AND mark.workshop_id=workshop.id '
+                .' AND topic.id=topic_course.topic_id AND topic_course.course_id ='.$row['course_id'] )->queryAll();
+
+            $cour = Course::findOne($row['course_id']);
+            $evaluation[] = array('name' => $cour->name, 'data'=>[(int)$model[0]['eval'],]);
+        }
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'evaluation' => $evaluation,
         ]);
     }
-
     /**
      * Displays a single Discipline model.
      * @param integer $id
@@ -70,7 +79,6 @@ class DisciplineController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-
     /**
      * Creates a new Discipline model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -79,7 +87,6 @@ class DisciplineController extends Controller
     public function actionCreate()
     {
         $model = new Discipline();
-
         if ($model->load(Yii::$app->request->post())  && $model->validate() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -88,7 +95,6 @@ class DisciplineController extends Controller
             ]);
         }
     }
-
     /**
      * Updates an existing Discipline model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -98,7 +104,6 @@ class DisciplineController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -107,7 +112,6 @@ class DisciplineController extends Controller
             ]);
         }
     }
-
     /**
      * Deletes an existing Discipline model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -119,12 +123,9 @@ class DisciplineController extends Controller
         if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
-
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
-
     /**
      * @param $id
      * @return \yii\web\Response
@@ -133,17 +134,12 @@ class DisciplineController extends Controller
      */
     public function actionRestore($id)
     {
-
         if (Yii::$app->user->identity->role !== User::ROLE_ADMIN) {
             throw new ForbiddenHttpException('Access denied');
         }
-
         $this->findModel($id)->restore();
-
         return $this->redirect(['index']);
     }
-
-
     /**
      * Finds the Discipline model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

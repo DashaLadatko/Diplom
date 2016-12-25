@@ -108,18 +108,29 @@ class User extends extUser
             'updated_by' => 'Updated By',
         ];
     }
+
     public function getGroup()
     {
         return $this->hasOne(GroupUser::className(), ['user_id' => 'id']);
     }
+
     public function getSenderMessage()
     {
         return $this->hasOne(Message::className(), ['to_user_id' => 'id']);
     }
+
     public function getReceiverMessage()
     {
         return $this->hasOne(Message::className(), ['from_user_id' => 'id']);
     }
+
+    public function getMark()
+    {
+        return $this->hasMany(Mark::className(), ['user_id' => 'id']);
+    }
+
+
+
     public function afterSave($insert, $changedAttributes)
     {
         if (Attachment::uploadBase64('imageFile', $this) && $model = $this->getAttachment()) {

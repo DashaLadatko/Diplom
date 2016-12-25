@@ -22,7 +22,7 @@ class AuditnmkdController extends Controller
         ->queryAll();
         foreach ($rows as $row) {
             Yii::$app->mailer->compose()
-                ->setFrom(Yii::$app->params['adminEmail'])
+                ->setFrom('adm.nmkd@gmail.com')
                 ->setTo(User::findOne($row['user_id'])->email)
                 ->setTextBody(' Шановний(а) ' . User::findOne($row['user_id'])->getFullName()
                     . '. Файл' . $row['name'] . ' не було оновлено на протязі року. Зверніть увагу. Адміністратор.')
@@ -33,7 +33,7 @@ class AuditnmkdController extends Controller
             .'WHERE signature=\'не завантажено\' AND DATEDIFF(NOW(),FROM_UNIXTIME( created_at))>10 ')->queryAll();
         foreach ($sends as $row) {
             Yii::$app->mailer->compose()
-                ->setFrom(Yii::$app->params['adminEmail'])
+                ->setFrom('adm.nmkd@gmail.com')
                 ->setTo(User::findOne($row['user_id'])->email)
                 ->setTextBody(' Шановний(а) ' . User::findOne($row['user_id'])->getFullName()
                     . '. Ви не завантажили файл НМКД. Минуло 10 днів. Зверніть увагу. Адміністратор.')
